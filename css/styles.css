@@ -24,7 +24,7 @@ body {
     color: #000000;
     background-color: #ffffff;
 
-    background-image: url("/img/bg-mobile.jpg");
+    background-image: url("img/bg-mobile.jpg");
     background-repeat: no-repeat;
     background-position: center center;
     background-size: cover;
