@@ -8,24 +8,41 @@
     <title>ИДЁМВКИНО!</title>
 </head>
 
-<body>
+<body class="index">
     <header class="header">
-        <a class="logo" href="#">Идём<span class="logo-span">в</span>кино</a>
-        <button class="login-btn" type="button">Войти</button>
         <h1 class="visually-hidden">Идём в кино</h1>
+        <div class="header-wrapper">
+            <a class="logo" href="#">Идём<span class="logo-span">в</span>кино</a>
+            <button class="login-btn" type="button" id="loginBtn">Войти</button>
+        </div>
+        <nav class="date-picker-wrapper">
+            <ul class="date-picker">
+                <li class="date-item">
+                    <a class="date-item-link" href="#">Сегодня <br> Пн, 31</a>
+                </li>
+                <li class="date-item">
+                    <a class="date-item-link" href="#">Вт, <br> 1</a>
+                </li>
+                <li class="date-item date-item-active">
+                    <a class="date-item-link" href="#">Ср, <br> 2</a>
+                </li>
+                <li class="date-item">
+                    <a class="date-item-link" href="#">Чт, <br> 3</a>
+                </li>
+                <li class="date-item">
+                    <a class="date-item-link" href="#">Пт, <br> 4</a>
+                </li>
+                <li class="date-item saturday">
+                    <a class="date-item-link" href="#">Сб, <br> 5</a>
+                </li>
+                <li class="date-item arrow-next">
+                    <a class="date-item-link" href="#">></a>
+                </li>
+            </ul>
+        </nav>
     </header>
-    <main class="main-content">
-        <ul class="date-picker">
-            <li class="date-item">Сегодня <br> Пн, 31</li>
-            <li class="date-item">Вт, <br> 1</li>
-            <li class="date-item date-item-active">Ср, <br> 2</li>
-            <li class="date-item">Чт, <br> 3</li>
-            <li class="date-item">Пт, <br> 4</li>
-            <li class="date-item saturday">Сб, <br> 5</li>
-            <li class="date-item arrow-next">></li>
-        </ul>
-
-        <div class="movie-container movie-1">
+    <main class="main-content" id="main">
+        <section class="movie-container">
             <div class="movie">
                 <img class="movie-poster" src="img/poster-1.png"
                     alt="Постер к фильму Звёздные войны XXIII: Атака клонированных клонов">
@@ -36,79 +53,142 @@
                     <p class="movie-duration">130 минут США</p>
                 </div>
             </div>
-            <div class="hall hall-1">Зал 1</div>
-            <ul class="movie-table table-1">                
-                <li class="movie-table-item">10:20</li>
-                <li class="movie-table-item">14:10</li>
-                <li class="movie-table-item">18:40</li>
-                <li class="movie-table-item">22:00</li>
+            <div class="hall">Зал 1</div>
+            <ul class="movie-table table-1">
+                <li class="movie-table-item">
+                    <a class="movie-table-item-link" href="">10:20</a>
+                </li>
+                <li class="movie-table-item">
+                    <a class="movie-table-item-link" href="">14:10</a>
+                </li>
+                <li class="movie-table-item">
+                    <a class="movie-table-item-link" href="">18:40</a>
+                </li>
+                <li class="movie-table-item">
+                    <a class="movie-table-item-link" href="">22:00</a>
+                </li>
             </ul>
-            <div class="hall hall-2">Зал 2</div>
-            <ul class="movie-table table-2">                
-                <li class="movie-table-item">11:15</li>
-                <li class="movie-table-item">14:40</li>
-                <li class="movie-table-item">16:00</li>
-                <li class="movie-table-item">18:30</li>
-                <li class="movie-table-item">21:00</li>
-                <li class="movie-table-item">23:30</li>
+            <div class="hall">Зал 2</div>
+            <ul class="movie-table table-2">
+                <li class="movie-table-item">
+                    <a class="movie-table-item-link" href="">11:15</a>
+                </li>
+                <li class="movie-table-item">
+                    <a class="movie-table-item-link" href="">14:40</a>
+                </li>
+                <li class="movie-table-item">
+                    <a class="movie-table-item-link" href="">16:00</a>
+                </li>
+                <li class="movie-table-item">
+                    <a class="movie-table-item-link" href="">18:30</a>
+                </li>
+                <li class="movie-table-item">
+                    <a class="movie-table-item-link" href="">21:00</a>
+                </li>
+                <li class="movie-table-item">
+                    <a class="movie-table-item-link" href="">23:30</a>
+                </li>
             </ul>
-        </div>
+        </section>
 
-        <div class="movie-container movie-2">
+        <section class="movie-container">
             <div class="movie">
-                <img class="movie-poster" src="img/poster-2.png"
-                    alt="Постер к фильму Альфа">
+                <img class="movie-poster" src="img/poster-2.png" alt="Постер к фильму Альфа">
                 <div class="movie-description">
                     <h2 class="movie-title">Альфа</h2>
-                    <p class="movie-text">20 тысяч лет назад Земля была холодным и неуютным местом, в котором смерть подстерегала человека на каждом шагу.</p>
+                    <p class="movie-text">20 тысяч лет назад Земля была холодным и неуютным местом, в котором смерть
+                        подстерегала человека на каждом шагу.</p>
                     <p class="movie-duration">96 минут Франция</p>
                 </div>
             </div>
-            <div class="hall hall-1">Зал 1</div>
-            <ul class="movie-table table-1">                
-                <li class="movie-table-item">10:20</li>
-                <li class="movie-table-item">14:10</li>
-                <li class="movie-table-item">18:40</li>
-                <li class="movie-table-item">22:00</li>
+            <div class="hall">Зал 1</div>
+            <ul class="movie-table table-1">
+                <li class="movie-table-item">
+                    <a class="movie-table-item-link" href="">10:20</a>
+                </li>
+                <li class="movie-table-item">
+                    <a class="movie-table-item-link" href="">14:10</a>
+                </li>
+                <li class="movie-table-item">
+                    <a class="movie-table-item-link" href="">18:40</a>
+                </li>
+                <li class="movie-table-item">
+                    <a class="movie-table-item-link" href="">22:00</a>
+                </li>
             </ul>
-            <div class="hall hall-2">Зал 2</div>
-            <ul class="movie-table table-2">                
-                <li class="movie-table-item">11:15</li>
-                <li class="movie-table-item">14:40</li>
-                <li class="movie-table-item">16:00</li>
-                <li class="movie-table-item">18:30</li>
-                <li class="movie-table-item">21:00</li>
-                <li class="movie-table-item">23:30</li>
+            <div class="hall">Зал 2</div>
+            <ul class="movie-table table-2">
+                <li class="movie-table-item">
+                    <a class="movie-table-item-link" href="">11:15</a>
+                </li>
+                <li class="movie-table-item">
+                    <a class="movie-table-item-link" href="">14:40</a>
+                </li>
+                <li class="movie-table-item">
+                    <a class="movie-table-item-link" href="">16:00</a>
+                </li>
+                <li class="movie-table-item">
+                    <a class="movie-table-item-link" href="">18:30</a>
+                </li>
+                <li class="movie-table-item">
+                    <a class="movie-table-item-link" href="">21:00</a>
+                </li>
+                <li class="movie-table-item">
+                    <a class="movie-table-item-link" href="">21:00</a>
+                </li>
             </ul>
-        </div>
+        </section>
 
-        <div class="movie-container movie-3">
+        <section class="movie-container">
             <div class="movie">
-                <img class="movie-poster" src="img/poster-3.png"
-                    alt="Постер к фильму Хищник">
+                <img class="movie-poster" src="img/poster-3.png" alt="Постер к фильму Хищник">
                 <div class="movie-description">
                     <h2 class="movie-title">Хищник</h2>
-                    <p class="movie-text">Самые опасные хищники Вселенной, прибыв из глубин космоса, высаживаются на улицах маленького городка, чтобы начать свою кровавую охоту. Генетически модернизировав себя с помощью ДНК других видов, охотники стали ещё сильнее, умнее и беспощаднее.</p>
+                    <p class="movie-text">Самые опасные хищники Вселенной, прибыв из глубин космоса, высаживаются на
+                        улицах маленького городка, чтобы начать свою кровавую охоту. Генетически модернизировав себя с
+                        помощью ДНК других видов, охотники стали ещё сильнее, умнее и беспощаднее.</p>
                     <p class="movie-duration">101 минута Канада США</p>
                 </div>
             </div>
-            <div class="hall hall-1">Зал 1</div>
-            <ul class="movie-table table-1">                
-                <li class="movie-table-item">09:00</li>
-                <li class="movie-table-item">10:10</li>
-                <li class="movie-table-item">12:55</li>
-                <li class="movie-table-item">14:15</li>
-                <li class="movie-table-item">14:50</li>
-                <li class="movie-table-item">16:30</li>
-                <li class="movie-table-item">18:00</li>
-                <li class="movie-table-item">18:50</li>
-                <li class="movie-table-item">19:50</li>
-                <li class="movie-table-item">20:55</li>
-                <li class="movie-table-item">22:00</li>
+            <div class="hall">Зал 1</div>
+            <ul class="movie-table table-1">
+                <li class="movie-table-item">
+                    <a class="movie-table-item-link" href="">09:00</a>
+                </li>
+                <li class="movie-table-item">
+                    <a class="movie-table-item-link" href="">09:00</a>
+                </li>
+                <li class="movie-table-item">
+                    <a class="movie-table-item-link" href="">12:55</a>
+                </li>
+                <li class="movie-table-item">
+                    <a class="movie-table-item-link" href="">14:15</a>
+                </li>
+                <li class="movie-table-item">
+                    <a class="movie-table-item-link" href="">14:50</a>
+                </li>
+                <li class="movie-table-item">
+                    <a class="movie-table-item-link" href="">16:30</a>
+                </li>
+                <li class="movie-table-item">
+                    <a class="movie-table-item-link" href="">18:00</a>
+                </li>
+                <li class="movie-table-item">
+                    <a class="movie-table-item-link" href="">18:50</a>
+                </li>
+                <li class="movie-table-item">
+                    <a class="movie-table-item-link" href="">19:50</a>
+                </li>
+                <li class="movie-table-item">
+                    <a class="movie-table-item-link" href="">20:55</a>
+                </li>
+                <li class="movie-table-item">
+                    <a class="movie-table-item-link" href="">22:00</a>
+                </li>
             </ul>
-        </div>
+        </section>
     </main>
-    <script src="scripts/index.js"></script>
+    <script src="scripts/index.js" type="module"></script>
 </body>
 
 </html>

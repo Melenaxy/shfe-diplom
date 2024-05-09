@@ -17,21 +17,21 @@ a {
 }
 
 body {
-    min-width: 390px;
-    max-width: 768px;
+    min-width: 360px;
+    max-width: 1600px;
+    height: 100vh;
     margin: 0 auto;
     font-family: Roboto;
     color: #000000;
     background-color: #ffffff;
 
-    background-image: url("../img/bg-mobile.jpg");
     background-repeat: no-repeat;
-    background-position: center center;
     background-size: cover;
-    background-color: #000000;
+}
 
-    position: relative;
-    z-index: 0;
+.index {
+    background-image: url("../img/bg-mobile.jpg");
+    background-position: center center;
 }
 
 .visually-hidden {
@@ -49,13 +49,18 @@ body {
 
 
 .main-content {
-    min-width: 390px;
-    max-width: 768px;
+    min-width: 360px;
+    max-width: 990px;
+    margin: 0 auto;
 }
 
-.header {
-    min-width: 390px;
-    max-width: 768px;
+.header-index {
+    min-width: 360px;
+    max-width: 990px;
+    margin: 0 auto;
+}
+
+.header-wrapper {
     display: flex;
     justify-content: space-between;
     padding: 14px 14px 10px 14px;
@@ -88,6 +93,7 @@ body {
     border-radius: 3px;
     box-shadow: 0px 0px 3px 0px rgba(0, 0, 0, 0.12);
     box-shadow: 0px 3px 3px 0px rgba(0, 0, 0, 0.24);
+    cursor: pointer;
 }
 
 /*#region Выбор даты фильма*/
@@ -101,14 +107,18 @@ body {
 .date-item {
     width: 100%;
     height: 48px;
-    padding: 10px;
 
     font-size: 12px;
     font-weight: 400;
 
     border-radius: 2px;
     background-color: rgba(255, 255, 255, 0.9);
-    cursor: pointer;
+}
+
+.date-item-link {
+    display: block;
+    width: 100%;
+    padding: 10px 20px;
 }
 
 .date-item-active {
@@ -146,14 +156,18 @@ body {
     display: flex;
 }
 
+.movie-container:not(:last-child) {
+    margin-bottom: 30px;
+}
+
 .movie-poster {
-    width: 35%;
-    height: 100%;
+    width: 125px;
+    height: 175px;
+    margin-right: 15px;
 }
 
 .movie-description {
-    width: 65%;
-    padding: 0px 15px;
+    width: 100%;
 }
 
 .movie-title {
@@ -182,8 +196,8 @@ body {
     margin-bottom: 7px;
 }
 
-.hall-2 {
-    margin-top: 20px;
+.movie-table:not(:last-child) {
+    margin-bottom: 20px;
 }
 
 .movie-table {
@@ -196,7 +210,6 @@ body {
 .movie-table-item {
     width: 53px;
     height: 33px;
-    padding: 7px 7px 8px 8px;
 
     font-size: 15px;
     font-weight: 400;
@@ -209,12 +222,116 @@ body {
     box-shadow: 0px 2px 2px 0px rgba(0, 0, 0, 0.24);
 }
 
-.movie-1, .movie-2 {
-    margin-bottom: 30px;
+.movie-table-item-link {
+    display: block;
+    width: 100%;
+    padding: 7px 7px 8px 8px;
 }
 
 /*#endregion */
 
-/*#region RegionName*/
+/*#region Страница авторизации*/
+.index-login {
+    background-image: url("../img/login-bg.jpg");
+
+}
+
+.header-login {
+    min-width: 360px;
+    max-width: 972px;
+    padding: 13px;
+    margin: 0 auto;
+}
+
+.logo-text {
+    font-size: 10px;
+    font-weight: 400;
+    letter-spacing: 5px;
+    text-transform: uppercase;
+    color: rgba(255, 255, 255, 1);
+}
+
+.auth-header {
+    min-width: 390px;
+    max-width: 480px;
+    height: 57px;
+    margin: 0px auto;
+    padding: 16px;
+
+    background-color: rgba(99, 83, 108, 1);
+}
+
+.auth-header-text {
+    font-size: 22px;
+    font-weight: 700;
+    text-transform: uppercase;
+    text-align: center;
+    color: rgba(255, 255, 255, 1);
+}
+
+.login-form {
+    display: flex;
+    flex-direction: column;
+    min-width: 390px;
+    max-width: 480px;
+    height: 237px;
+    padding: 35px 60px;
+    margin: 0px auto;
+    background-color: rgba(234, 233, 235, 0.95);
+
+}
+
+.login-form-label {
+    display: block;
+    width: 272px;
+    margin: 0px auto;
+    font-size: 12px;
+    font-weight: 400;
+    color: rgba(132, 132, 132, 1);
+}
+
+.input-login,
+.input-password {
+    width: 272px;
+    height: 36px;
+    padding: 8px 8.8px 9px 8.8px;
+    margin: 0px auto;
+    font-size: 16px;
+    font-weight: 400;
+    border: 1px solid rgba(183, 183, 183, 1);
+}
+
+.input-login {
+    margin-bottom: 9px;
+}
+
+.input-password {
+    margin-bottom: 17px;
+}
+
+.auth-btn {
+    width: 189px;
+    height: 40px;
+    padding: 11px 32px;
+    margin: 0px auto;
+    font-size: 14px;
+    font-weight: 500;
+    text-align: center;
+    text-transform: uppercase;
+    color: rgba(255, 255, 255, 1);
+    background-color: rgba(22, 166, 175, 1);
+    border: none;
+    border-radius: 3px;
+    box-shadow: 0px 0px 3px 0px rgba(0, 0, 0, 0.12);
+    box-shadow: 0px 3px 3px 0px rgba(0, 0, 0, 0.24);
+    cursor: pointer;
+}
+
+@media (min-width: 769px) {
+    .header-login {
+        padding: 35px 42px 33px 104px;
+    }
+
+}
 
 /*#endregion */
