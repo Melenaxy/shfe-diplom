@@ -2,21 +2,24 @@ import { Data } from './data.js'
 
 class Main {
     constructor() {
-        console.log('test');
         this.apiData = new Data();
         this.main = document.getElementById('main');
         this.loginBtn = document.getElementById('loginBtn');
+        this.currentDate = '2023-12-01';
         this.data = {};
+        this.halls = [];
+        this.films = [];
+        this.seances = []
 
         this.addEventListeners();
-        //this.initList();
+        this.initList();
     }
 
     addEventListeners() {
         if (this.loginBtn) {
             this.loginBtn.addEventListener('click', (e) => {
                 e.preventDefault();
-                document.location='./login.html';
+                document.location = './login.html';
             })
         }
     }
@@ -24,20 +27,57 @@ class Main {
     async initList() {
         this.data = await this.apiData.getAllData();
         if (this.data.success) {
-            console.log(this.data.result);
+            this.halls = this.data.result.halls;
+            this.films = this.data.result.films;
+            this.seances = this.data.result.seances;
 
-            for (let film of this.data.result.films) {
+            for (let film of this.films) {
                 this.main.innerHTML += this.createFilmCopmonent(film);
             }
+            let seancesList = Array.from(document.querySelectorAll('.movie-table-item'));
+            seancesList.forEach(seance => {
+                seance.addEventListener('click', (e) => this.seanceClick(e))
+            })
         } else {
             alert(res.error);
         }
     }
 
     createFilmCopmonent(film) {
-        return `
+        let hallsSeances = '';
+        for (let hall of this.halls) {
+            let currentFilmSeances = this.seances.filter(seance => seance.seance_hallid === hall.id && seance.seance_filmid === film.id);
+            if (currentFilmSeances.length > 0) {
+                currentFilmSeances.sort(function (a, b) {
+                    if (a.seance_time > b.seance_time) {
+                        return 1;
+                    }
+                    if (a.seance_time < b.seance_time) {
+                        return -1;
+                    }
+                    return 0;
+                });
+
+                hallsSeances += `
+                    <div class="hall id=${hall.id}">${hall.hall_name}</div>
+                    <ul class="movie-table">
+                `;
+
+                currentFilmSeances.forEach(seance => {
+                    hallsSeances += `
+                        <li class="movie-table-item" id="${seance.id}">
+                            <a class="movie-table-item-link" href="">${seance.seance_time}</a>
+                        </li>
+                    `;
+                });
+            };
+            hallsSeances += `</ul>`;
+        }
+
+        if (hallsSeances) {
+            return `
             <section class="movie-container">
-                <div class="movie" id="film.id">
+                <div class="movie" id="${film.id}">
                     <img class="movie-poster" src="${film.film_poster}"
                         alt="Постер к фильму ${film.film_name}">
                     <div class="movie-description">
@@ -46,24 +86,15 @@ class Main {
                         <p class="movie-duration">${film.film_duration} ${film.film_origin}</p>
                     </div>
                 </div>
-                <div class="hall hall-1">Зал 1</div>
-                <ul class="movie-table table-1">
-                    <li class="movie-table-item">10:20</li>
-                    <li class="movie-table-item">14:10</li>
-                    <li class="movie-table-item">18:40</li>
-                    <li class="movie-table-item">22:00</li>
-                </ul>
-                <div class="hall hall-2">Зал 2</div>
-                    <ul class="movie-table table-2">
-                            <li class="movie-table-item">11:15</li>
-                            <li class="movie-table-item">14:40</li>
-                            <li class="movie-table-item">16:00</li>
-                            <li class="movie-table-item">18:30</li>
-                            <li class="movie-table-item">21:00</li>
-                            <li class="movie-table-item">23:30</li>
-                    </ul>
-            </section>
-        `
+                ${hallsSeances}
+            </section>`;
+        }
+    }
+
+    seanceClick(e) {
+        e.preventDefault();
+        let seanceId = e.target.closest('.movie-table-item').id;
+        document.location = `./seance.html?seanceId=${seanceId}&date=${this.currentDate}`;
     }
 }
 

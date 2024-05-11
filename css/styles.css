@@ -19,7 +19,7 @@ a {
 body {
     min-width: 360px;
     max-width: 1600px;
-    height: 100vh;
+    min-height: 100vh;
     margin: 0 auto;
     font-family: Roboto;
     color: #000000;
@@ -45,16 +45,16 @@ body {
     overflow: hidden;
 }
 
-/*#endregion */
-
-
 .main-content {
     min-width: 360px;
     max-width: 990px;
     margin: 0 auto;
 }
 
-.header-index {
+/*#endregion */
+
+/*#region Шапка сайта*/
+.header {
     min-width: 360px;
     max-width: 990px;
     margin: 0 auto;
@@ -95,6 +95,8 @@ body {
     box-shadow: 0px 3px 3px 0px rgba(0, 0, 0, 0.24);
     cursor: pointer;
 }
+
+/*#endregion */
 
 /*#region Выбор даты фильма*/
 .date-picker {
@@ -144,7 +146,6 @@ body {
 }
 
 /*#endregion */
-
 
 /*#region Описание фильма */
 .movie-container {
@@ -233,7 +234,6 @@ body {
 /*#region Страница авторизации*/
 .index-login {
     background-image: url("../img/login-bg.jpg");
-
 }
 
 .header-login {
@@ -333,5 +333,204 @@ body {
     }
 
 }
+
+/*#endregion */
+
+/*#region Страница выбора билетов*/
+.seance {
+    background-image: url("../img/bg-mobile.jpg");
+    background-position: center center;
+}
+
+.header-seance {
+    min-width: 360px;
+    max-width: 990px;
+    height: 67px;
+    padding: 13px;
+    margin: 0 auto;
+}
+
+.seance-header-text {
+    margin-bottom: 8px;
+    font-family: Roboto;
+    font-size: 16px;
+    font-weight: 700;
+    line-height: 18px;
+    text-align: left;
+}
+
+.main-seance {
+    min-width: 390px;
+    max-width: 990px;
+    margin: 0px auto;
+    height: 591px;
+    background-color: rgba(241, 235, 230, 0.95);
+}
+
+.main-seance-header {
+    height: 115px;
+    padding: 15px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.seance-start-time {
+    margin-bottom: 5px;
+    font-size: 14px;
+    font-weight: 300;
+}
+
+.seance-hall-name {
+    font-size: 16px;
+    font-weight: 700;
+}
+
+.tap {
+    width: 100px;
+    padding: 10px 16px;
+    font-size: 14px;
+    font-weight: 300;
+    text-align: center;
+}
+
+.tap::before {
+    content: url(../img/hint.png);
+    width: 24px;
+    height: 32px;
+    position: absolute;
+    top: 109px;
+    right: 101px;
+}
+
+.hall-config {
+    height: 376px;
+    padding: 15px 30px;
+    background-color: rgba(23, 29, 36, 1);
+}
+
+.hall-config-wrapper {
+    width: 284px;
+    height: 266px;
+    margin: 0px auto;
+}
+
+.screen {
+    height: 30px;
+    background-image: url(../img/screen.png);
+    background-repeat: no-repeat;
+    background-size: contain;
+}
+
+.halls-row {
+    display: flex;
+    gap: 4px;
+}
+
+.halls-row:not(:last-child) {
+    margin-bottom: 4px;
+}
+
+.halls-seat {
+    background-color: rgba(255, 255, 255, 1);
+    width: 20px;
+    height: 20px;
+    border: 1px solid rgba(82, 82, 82, 1);
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.disabled-seat {
+    background-color: rgba(23, 29, 36, 1);
+    border: none;
+    cursor: default
+}
+
+.vip-seat {
+    background-color: rgba(249, 149, 58, 1);
+}
+
+.taken-seat {
+    background-color: rgba(23, 29, 36, 1);
+    border: 1px solid rgba(82, 82, 82, 1);
+    cursor: default;
+}
+
+.selected-seat {
+    background-color: rgba(37, 196, 206, 1);
+    box-shadow: 0px 0px 4px 0px rgba(22, 166, 175, 1);
+}
+
+.seats-legend {
+    margin-top: 30px;
+    display: flex;
+}
+
+.seat-prices,
+.seats-available {
+    display: flex;
+    flex-direction: column;
+    padding: 0px 10px;
+}
+
+.seats-prices {
+    width: 184px;
+    padding-left: 10px;
+}
+
+.seats-legend-wrapper {
+    width: 184px;
+    display: flex;
+}
+
+.seats-legend-wrapper > .halls-seat {
+    cursor: default;
+}
+
+.seats-legend-wrapper:not(:last-child) {
+    margin-bottom: 10px;
+}
+
+.seats-legend-text {
+    margin-left: 4px;
+    font-size: 14px;
+    font-weight: 300;
+    line-height: 16px;
+    color: rgba(255, 255, 255, 1);
+}
+
+.book-btn {
+    display: block;
+    width: 232px;
+    height: 40px;
+    margin: 30px auto 0px auto;
+    padding: 11px 57px;
+
+    font-size: 14px;
+    font-weight: 500;
+    color: rgba(255, 255, 255, 1);
+    text-transform: uppercase;
+
+    background-color: rgba(22, 166, 175, 1);
+    border: none;
+    border-radius: 3px;
+    box-shadow: 0px 0px 3px 0px rgba(0, 0, 0, 0.12);
+    box-shadow: 0px 3px 3px 0px rgba(0, 0, 0, 0.24);
+    cursor: pointer;
+}
+
+@media (min-width: 769px) {
+    .main-seance-header {
+        height: 97px;
+    }
+
+    .main-seance {
+        height: 573px;
+    }
+
+    .tap {
+        display: none;
+    }
+}
+
 
 /*#endregion */
