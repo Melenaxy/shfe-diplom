@@ -3,15 +3,22 @@ import { Data } from './data.js'
 class Main {
     constructor() {
         this.apiData = new Data();
+
+        this.dateNav = document.querySelector('.date-picker-wrapper');
+        this.days = [];
+        this.today = new Date();
+        this.weeksDays = ['Вс', 'Пн', 'Вт', 'Ср', 'Чт', 'Пт', 'Сб'];
+        this.currentDate = '';
+
         this.main = document.getElementById('main');
         this.loginBtn = document.getElementById('loginBtn');
-        this.currentDate = '2023-12-01';
         this.data = {};
         this.halls = [];
         this.films = [];
         this.seances = []
 
         this.addEventListeners();
+        this.createDateNav();
         this.initList();
     }
 
@@ -22,6 +29,87 @@ class Main {
                 document.location = './login.html';
             })
         }
+    }
+
+    createDateNav() {
+        this.dateNav.innerHTML += this.getWeeksDays();
+        this.pickDate();
+        this.clickNext();
+    }
+
+    getWeeksDays() {
+        let d = new Date();
+        let n = d.getDay();
+        return `
+            <ul class="date-picker">
+                <li class="date-item date-item-active" data-date="${d.toISOString().slice(0, 10)}">
+                    <a class="date-item-link" href="#">Сегодня <br> ${this.weeksDays[n]}, ${d.getDate()}</a>
+                </li>
+                <li class="date-item" data-date="${new Date(d.setDate(d.getDate() + 1)).toISOString().slice(0, 10)}">
+                    <a class="date-item-link" href="#">${this.weeksDays[++n]}, <br> ${d.getDate()}</a>
+                </li>
+                <li class="date-item" data-date="${new Date(d.setDate(d.getDate() + 1)).toISOString().slice(0, 10)}">
+                    <a class="date-item-link" href="#">${this.weeksDays[++n]}, <br> ${d.getDate()}</a>
+                </li>
+                <li class="date-item" data-date="${new Date(d.setDate(d.getDate() + 1)).toISOString().slice(0, 10)}">
+                    <a class="date-item-link" href="#">${this.weeksDays[++n]}, <br> ${d.getDate()}</a>
+                </li>
+                <li class="date-item" data-date="${new Date(d.setDate(d.getDate() + 1)).toISOString().slice(0, 10)}">
+                    <a class="date-item-link" href="#">${this.weeksDays[++n]}, <br> ${d.getDate()}</a>
+                </li>
+                <li class="date-item" data-date="${new Date(d.setDate(d.getDate() + 1)).toISOString().slice(0, 10)}">
+                    <a class="date-item-link" href="#">${this.weeksDays[++n]}, <br> ${d.getDate()}</a>
+                </li>
+                <li class="date-item" data-date="${new Date(d.setDate(d.getDate() + 1)).toISOString().slice(0, 10)}">
+                    <a class="date-item-link" href="#">${this.weeksDays[++n]}, <br> ${d.getDate()}</a>
+                </li>
+                <li class="date-item arrow-next">
+                    <a class="date-item-link" href="#">></a>
+                </li>
+            </ul>
+          `
+    }
+
+    pickDate() {
+        this.days = Array.from(document.querySelectorAll('.date-item'));
+        this.days[6].style.display = 'none';
+
+        this.days.forEach(day => {
+            if (day.innerHTML.includes('Сб') || day.innerHTML.includes('Вс')) {
+                day.classList.add('weekend');
+            };
+            day.addEventListener('click', (e) => {
+                let target = e.target;
+                if (target.closest('.arrow-next')) {
+                    return;
+                };
+                this.days.forEach(s => s.classList.remove('date-item-active'));
+                target.closest('.date-item').classList.add('date-item-active');
+            })
+        })
+    }
+
+    clickNext() {
+        let arrow = document.querySelector('.arrow-next');
+        arrow.addEventListener('click', (e) => {
+            let index = this.days.findIndex(s => s.closest('.date-item').classList.contains('date-item-active'));
+            if (index < 5) {
+                this.days[0].style.display = 'block';
+                this.days[6].style.display = 'none';
+                this.days[index].classList.remove('date-item-active');
+                this.days[index + 1].classList.add('date-item-active');
+            } else if (index === 5) {
+                this.days[0].style.display = 'none';
+                this.days[6].style.display = 'block';
+                this.days[index].classList.remove('date-item-active');
+                this.days[index + 1].classList.add('date-item-active');
+            } else if (index === 6) {
+                this.days[0].style.display = 'block';
+                this.days[6].style.display = 'none';
+                this.days[6].classList.remove('date-item-active');
+                this.days[0].classList.add('date-item-active');
+            }
+        })
     }
 
     async initList() {
@@ -93,6 +181,7 @@ class Main {
 
     seanceClick(e) {
         e.preventDefault();
+        this.currentDate = document.querySelector('.date-item-active').dataset.date;
         let seanceId = e.target.closest('.movie-table-item').id;
         document.location = `./seance.html?seanceId=${seanceId}&date=${this.currentDate}`;
     }

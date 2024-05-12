@@ -13,7 +13,7 @@ ul {
 
 a {
     text-decoration: none;
-    color: #000000;
+    color: inherit;
 }
 
 body {
@@ -134,7 +134,7 @@ body {
     ;
 }
 
-.saturday {
+.weekend {
     color: rgba(222, 33, 33, 1);
 }
 
