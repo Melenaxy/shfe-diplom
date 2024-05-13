@@ -41,5 +41,23 @@ export class Data {
             return null;
         }
     }
+
+    async getHallConfiguration(params) {
+        try {
+            let path = `${this.URL}/hallconfig?${params}`;
+            let result = await fetch(path, {
+                method: 'GET',
+                headers: this.header,
+            })
+            if (result.ok === true) {
+                return result.json();
+            } else {
+                return null;
+            }
+        } catch (e) {
+            console.error(e);
+            return null;
+        }
+    }
 }
 
