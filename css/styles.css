@@ -51,6 +51,12 @@ body {
     margin: 0 auto;
 }
 
+li.disabled {
+    pointer-events: none;
+    cursor: default;
+    background-color: #bdbebd;
+}
+
 /*#endregion */
 
 /*#region Шапка сайта*/
@@ -491,7 +497,7 @@ body {
     display: flex;
 }
 
-.seats-legend-wrapper > .halls-seat {
+.seats-legend-wrapper>.halls-seat {
     cursor: default;
 }
 

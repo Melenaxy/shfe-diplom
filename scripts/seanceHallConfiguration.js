@@ -7,8 +7,9 @@ class SeanceHallConfiguration {
         this.params = window.location.href.split("?")[1];
         this.seanceId = Number(this.params.split('&')[0].split('=')[1]);
         this.date = this.params.split('&')[1].split('=')[1];
+        this.tickets = [];
 
-        this.hall = document.querySelector('.halls-row-wrapper');
+        this.hallConfig = document.querySelector('.halls-row-wrapper');
         this.seats = [];
         this.bookBtn = document.querySelector('.book-btn');
         this.getSeanceDiscription();
@@ -18,12 +19,12 @@ class SeanceHallConfiguration {
     getSeanceDiscription() {
         this.apiData.getAllData().then(res => {
             if (res.success) {
-                let seance = res.result.seances.find(s => s.id === this.seanceId);
-                document.querySelector('.seance-start-time').textContent = seance.seance_time;
-                let film = res.result.films.find(f => f.id === seance.seance_filmid);
-                document.querySelector('.seance-header-text').textContent = film.film_name;
-                let hall = res.result.halls.find(h => h.id === seance.seance_hallid);
-                document.querySelector('.seance-hall-name').textContent = hall.hall_name;
+                this.seance = res.result.seances.find(s => s.id === this.seanceId);
+                document.querySelector('.seance-start-time').textContent = this.seance.seance_time;
+                this.film = res.result.films.find(f => f.id === this.seance.seance_filmid);
+                document.querySelector('.seance-header-text').textContent = this.film.film_name;
+                this.hall = res.result.halls.find(h => h.id === this.seance.seance_hallid);
+                document.querySelector('.seance-hall-name').textContent = this.hall.hall_name;
             }
         })
     }
@@ -35,10 +36,15 @@ class SeanceHallConfiguration {
             for (let i = 0; i < this.rows.length; i++) {
                 let text = `<div class="halls-row">`
                 for (let j = 0; j < this.rows[i].length; j++) {
-                    text +=`<div class="halls-seat ${this.rows[i][j]}-seat" data-ticket_row="${i + 1}" data-ticket_place="${j + 1}"></div>`
+                    text += `<div class="halls-seat ${this.rows[i][j]}-seat" 
+                    data-ticket_row="${i + 1}" 
+                    data-ticket_place="${j + 1}" 
+                    data-coast="${this.rows[i][j] === 'standart' ? this.hall.hall_price_standart : this.hall.hall_price_vip}"></div>`
                 }
-                this.hall.innerHTML += text+`</div>`;
+                this.hallConfig.innerHTML += text + `</div>`;
             };
+            document.querySelector('.standart-seat-price').textContent = `(${this.hall.hall_price_standart}руб)`;
+            document.querySelector('.vip-seat-price').textContent = `(${this.hall.hall_price_vip}руб)`;
             this.addEventListeners();
         } else {
             alert(res.error);
@@ -46,7 +52,7 @@ class SeanceHallConfiguration {
     }
 
     addEventListeners() {
-        this.seats = Array.from(this.hall.querySelectorAll('.halls-seat'));
+        this.seats = Array.from(this.hallConfig.querySelectorAll('.halls-seat'));
         if (this.seats.length > 0) {
             this.seats.forEach(seat => {
                 seat.addEventListener('click', (e) => {
@@ -61,10 +67,31 @@ class SeanceHallConfiguration {
                     } else {
                         this.bookBtn.disabled = true;
                     };
-                    console.log(target)
                 })
             })
-        }
+        };
+
+        this.bookBtn.addEventListener('click', (e) => {
+            let selected = Array.from(this.hallConfig.querySelectorAll('.selected-seat'));
+            for (let seat of selected) {
+                this.tickets.push({
+                    row: Number(seat.dataset.ticket_row),
+                    place: Number(seat.dataset.ticket_place),
+                    coast: Number(seat.dataset.coast),
+                })
+            };
+
+            let model = new FormData();
+            model.set("seanceId", this.seanceId);
+            model.set("ticketDate", this.date);
+            model.set("tickets", JSON.stringify(this.tickets));
+
+            this.apiData.getTicketsBooking(model).then(res => {
+                if (res.success)
+                localStorage.setItem('tickets', JSON.stringify(res.result));
+                document.location='./payment.html'
+            })
+        })
     }
 }
 

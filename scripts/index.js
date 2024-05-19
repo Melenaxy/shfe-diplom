@@ -6,7 +6,6 @@ class Main {
 
         this.dateNav = document.querySelector('.date-picker-wrapper');
         this.days = [];
-        this.today = new Date();
         this.weeksDays = ['Вс', 'Пн', 'Вт', 'Ср', 'Чт', 'Пт', 'Сб'];
         this.currentDate = '';
 
@@ -46,19 +45,19 @@ class Main {
                     <a class="date-item-link" href="#">Сегодня <br> ${this.weeksDays[n]}, ${d.getDate()}</a>
                 </li>
                 <li class="date-item" data-date="${new Date(d.setDate(d.getDate() + 1)).toISOString().slice(0, 10)}">
-                    <a class="date-item-link" href="#">${this.weeksDays[++n]}, <br> ${d.getDate()}</a>
+                    <a class="date-item-link" href="#">${n < 6 ? this.weeksDays[++n] : this.weeksDays[n = 0]}, <br> ${d.getDate()}</a>
                 </li>
                 <li class="date-item" data-date="${new Date(d.setDate(d.getDate() + 1)).toISOString().slice(0, 10)}">
-                    <a class="date-item-link" href="#">${this.weeksDays[++n]}, <br> ${d.getDate()}</a>
+                    <a class="date-item-link" href="#">${n < 6 ? this.weeksDays[++n] : this.weeksDays[n = 0]}, <br> ${d.getDate()}</a>
                 </li>
                 <li class="date-item" data-date="${new Date(d.setDate(d.getDate() + 1)).toISOString().slice(0, 10)}">
-                    <a class="date-item-link" href="#">${this.weeksDays[++n]}, <br> ${d.getDate()}</a>
+                    <a class="date-item-link" href="#">${n < 6 ? this.weeksDays[++n] : this.weeksDays[n = 0]}, <br> ${d.getDate()}</a>
                 </li>
                 <li class="date-item" data-date="${new Date(d.setDate(d.getDate() + 1)).toISOString().slice(0, 10)}">
-                    <a class="date-item-link" href="#">${this.weeksDays[++n]}, <br> ${d.getDate()}</a>
+                    <a class="date-item-link" href="#">${n < 6 ? this.weeksDays[++n] : this.weeksDays[n = 0]}, <br> ${d.getDate()}</a>
                 </li>
                 <li class="date-item" data-date="${new Date(d.setDate(d.getDate() + 1)).toISOString().slice(0, 10)}">
-                    <a class="date-item-link" href="#">${this.weeksDays[++n]}, <br> ${d.getDate()}</a>
+                    <a class="date-item-link" href="#">${n < 6 ? this.weeksDays[++n] : this.weeksDays[n = 0]}, <br> ${d.getDate()}</a>
                 </li>
                 <li class="date-item" data-date="${new Date(d.setDate(d.getDate() + 1)).toISOString().slice(0, 10)}">
                     <a class="date-item-link" href="#">${this.weeksDays[++n]}, <br> ${d.getDate()}</a>
@@ -72,7 +71,7 @@ class Main {
 
     pickDate() {
         this.days = Array.from(document.querySelectorAll('.date-item'));
-        this.days[6].style.display = 'none';
+        this.days[7].style.display = 'none';
 
         this.days.forEach(day => {
             if (day.innerHTML.includes('Сб') || day.innerHTML.includes('Вс')) {
@@ -83,6 +82,19 @@ class Main {
                 if (target.closest('.arrow-next')) {
                     return;
                 };
+
+                // Далем недоступными сеансы, время которых прошло
+                let allSeances = document.querySelectorAll('.movie-table-item-link')
+                for (let seance of allSeances) {
+                    if (target.textContent.includes('Сегодня')) {
+                        if (seance.textContent < new Date().toLocaleTimeString().slice(0, 5)) {
+                            seance.closest('.movie-table-item').classList.add('disabled');
+                        }
+                    } else {
+                        seance.closest('.movie-table-item').classList.remove('disabled');
+                    }
+                };
+
                 this.days.forEach(s => s.classList.remove('date-item-active'));
                 target.closest('.date-item').classList.add('date-item-active');
             })
@@ -121,11 +133,12 @@ class Main {
 
             for (let film of this.films) {
                 this.main.innerHTML += this.createFilmCopmonent(film);
-            }
+            };
+
             let seancesList = Array.from(document.querySelectorAll('.movie-table-item'));
             seancesList.forEach(seance => {
                 seance.addEventListener('click', (e) => this.seanceClick(e))
-            })
+            });
         } else {
             alert(res.error);
         }
@@ -133,6 +146,7 @@ class Main {
 
     createFilmCopmonent(film) {
         let hallsSeances = '';
+        let currentTime = new Date().toLocaleTimeString().slice(0, 5)
         for (let hall of this.halls) {
             let currentFilmSeances = this.seances.filter(seance => seance.seance_hallid === hall.id && seance.seance_filmid === film.id);
             if (currentFilmSeances.length > 0) {
@@ -153,7 +167,7 @@ class Main {
 
                 currentFilmSeances.forEach(seance => {
                     hallsSeances += `
-                        <li class="movie-table-item" id="${seance.id}">
+                        <li class="movie-table-item ${seance.seance_time < currentTime ? 'disabled' : ''}" id="${seance.id}">
                             <a class="movie-table-item-link" href="">${seance.seance_time}</a>
                         </li>
                     `;
