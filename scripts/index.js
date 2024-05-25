@@ -132,7 +132,10 @@ class Main {
             this.seances = this.data.result.seances;
 
             for (let film of this.films) {
-                this.main.innerHTML += this.createFilmCopmonent(film);
+                let filmCopmonent = this.createFilmCopmonent(film); 
+                if (filmCopmonent) {
+                    this.main.innerHTML += filmCopmonent;
+                }
             };
 
             let seancesList = Array.from(document.querySelectorAll('.movie-table-item'));
@@ -146,37 +149,41 @@ class Main {
 
     createFilmCopmonent(film) {
         let hallsSeances = '';
-        let currentTime = new Date().toLocaleTimeString().slice(0, 5)
-        for (let hall of this.halls) {
-            let currentFilmSeances = this.seances.filter(seance => seance.seance_hallid === hall.id && seance.seance_filmid === film.id);
-            if (currentFilmSeances.length > 0) {
-                currentFilmSeances.sort(function (a, b) {
-                    if (a.seance_time > b.seance_time) {
-                        return 1;
-                    }
-                    if (a.seance_time < b.seance_time) {
-                        return -1;
-                    }
-                    return 0;
-                });
-
-                hallsSeances += `
-                    <div class="hall id=${hall.id}">${hall.hall_name}</div>
-                    <ul class="movie-table">
-                `;
-
-                currentFilmSeances.forEach(seance => {
+        let currentTime = new Date().toLocaleTimeString().slice(0, 5);
+        if (this.halls.length > 0) {
+            for (let hall of this.halls) {
+                let currentFilmSeances = this.seances.filter(seance => seance.seance_hallid === hall.id && seance.seance_filmid === film.id);
+                if (currentFilmSeances.length > 0) {
+                    currentFilmSeances.sort(function (a, b) {
+                        if (a.seance_time > b.seance_time) {
+                            return 1;
+                        }
+                        if (a.seance_time < b.seance_time) {
+                            return -1;
+                        }
+                        return 0;
+                    });
+    
                     hallsSeances += `
-                        <li class="movie-table-item ${seance.seance_time < currentTime ? 'disabled' : ''}" id="${seance.id}">
-                            <a class="movie-table-item-link" href="">${seance.seance_time}</a>
-                        </li>
+                        <div class="hall id=${hall.id}">${hall.hall_name}</div>
+                        <ul class="movie-table">
                     `;
-                });
-            };
-            hallsSeances += `</ul>`;
+    
+                    currentFilmSeances.forEach(seance => {
+                        hallsSeances += `
+                            <li class="movie-table-item ${seance.seance_time < currentTime ? 'disabled' : ''}" id="${seance.id}">
+                                <a class="movie-table-item-link" href="">${seance.seance_time}</a>
+                            </li>
+                        `;
+                    });
+                };
+                hallsSeances += `</ul>`;
+            }
         }
 
-        if (hallsSeances) {
+        if (!hallsSeances) {
+            return;
+        } else {
             return `
             <section class="movie-container">
                 <div class="movie" id="${film.id}">

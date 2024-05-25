@@ -1,11 +1,58 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/styles.css">
     <title>Личный кабинет администратора</title>
 </head>
-<body>
-    <h1>TEST3!!!</h1>
+
+<body class="index-admin">
+    <header class="header-admin">
+        <h1 class="visually-hidden">Идём в кино</h1>
+        <a class="logo" href="index.html">Идём<span class="logo-span">в</span>кино</a>
+        <p class="logo-text">Администраторррская</p>
+    </header>
+    <main>
+        <section class="section-admin">
+            <h2 class="section-admin-header">Управление залами</h2>
+            <div class="section-admin-content">
+                <p class="halls-list-header">Доступные залы:</p>
+                <ul class="halls-list">
+                    <li class="halls-list-item">
+                        <div class="halls-list-item-text">Зал 1</div>
+                        <div class="halls-list-item-img"></div>
+                    </li>
+                    <li class="halls-list-item">
+                        <div class="halls-list-item-text">Зал 2</div>
+                        <div class="halls-list-item-img"></div>
+                    </li>
+                </ul>
+                <button type="button" class="create-hall-btn" id="createHall"
+                    onclick="document.getElementById('createHallModal').showModal()">Создать зал</button>
+            </div>
+        </section>
+    </main>
+
+    <dialog id="createHallModal">
+        <h2 id="subscribe-header">Данные для подписки</h2>
+        <button onclick="this.closest('dialog').close()" aria-label="Закрыть">
+            ×
+        </button>
+
+        <form>
+            <label>
+                Введите ваш email
+                <input type="email" autofocus>
+            </label>
+        </form>
+
+        <div>
+            <button>Подписаться</button>
+            <button onclick="this.closest('dialog').close()" aria-label="Отменить">Отменить</button>
+        </div>
+    </dialog>
 </body>
+
 </html>

@@ -1,14 +1,40 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/styles.css">
+    <script src="scripts/QRCreator.js" defer></script>
     <title>Document</title>
     <script>
-        console.log(JSON.parse(localStorage.getItem('tickets')))
     </script>
 </head>
-<body>
-    <h1>Hello</h1>
+
+<body class="index-payment">
+    <header class="header-payment">
+        <h1 class="visually-hidden">Идём в кино</h1>
+        <a class="logo" href="index.html">Идём<span class="logo-span">в</span>кино</a>
+    </header>
+    <main class="main-payment">
+        <h2 class="section-payment-header">Вы выбрали билеты:</h2>
+        <div class="section-payment">
+            <p class="ticket-info">На фильм: <span class="ticket-info-text" id="title">Звёздные войны XXIII: Атака
+                    клонированных клонов</span></p>
+            <p class="ticket-info">Места: <span class="ticket-info-text" id="places">6, 7</span></p>
+            <p class="ticket-info">В зале: <span class="ticket-info-text" id="hall">1</span></p>
+            <p class="ticket-info">Начало сеанса: <span class="ticket-info-text" id="seance">18:30</span></p>
+            <p class="ticket-info">Стоимость: <span class="ticket-info-text" id="sum">600 рублей</span></p>
+            <button class="book-ticket-btn" id="bookBtn">Получить код бронирования</button>
+            <div class="gq-code-wrapper" id="gqCodeWrapper" style="display: none;"></div>
+            <p class="general-info" id="info">После оплаты билет будет доступен в этом окне, а также придёт вам на почту. Покажите
+                QR-код нашему
+                контроллёру у входа в зал.</p>
+            <p class="general-info">Приятного просмотра!</p>
+        </div>
+    </main>
+    <script src="scripts/payment.js" type="module"></script>
+
 </body>
+
 </html>
