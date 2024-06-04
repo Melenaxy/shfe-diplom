@@ -197,18 +197,6 @@
                         <div class="halls-seats standart"></div>
                         <div class="halls-seats disabled"></div>
                     </div>
-                    <div class="halls-rows-config">
-                        <div class="halls-seats disabled"></div>
-                        <div class="halls-seats standart"></div>
-                        <div class="halls-seats standart"></div>
-                        <div class="halls-seats standart"></div>
-                        <div class="halls-seats vip"></div>
-                        <div class="halls-seats vip"></div>
-                        <div class="halls-seats standart"></div>
-                        <div class="halls-seats standart"></div>
-                        <div class="halls-seats standart"></div>
-                        <div class="halls-seats disabled"></div>
-                    </div>
                 </div>
                 <div class="config-btn-wrapper">
                     <button type="button" class="config-btn cancel" id="cancelSeatsConfig">Отмена</button>
@@ -233,14 +221,14 @@
                 <div class="prices-config-wrapper">
                     <label for="standartPriceValue" class="prices-config-label">Цена, рублей</label>
                     <div class="prices-config-row">
-                        <input type="number" class="prices-config-input" id="standartPriceValue">
+                        <input type="number" class="prices-config-input" id="standartPriceValue" min="1">
                         <p class="prices-config-text"> за </p>
                         <div class="halls-seats standart"></div>
                         <p class="prices-config-text">обычные кресла</p>
                     </div>
                     <label for="standartPriceValue" class="prices-config-label">Цена, рублей</label>
                     <div class="prices-config-row">
-                        <input type="number" class="prices-config-input" id="standartPriceValue">
+                        <input type="number" class="prices-config-input" id="standartPriceValue" min="1">
                         <p class="prices-config-text"> за </p>
                         <div class="halls-seats vip"></div>
                         <p class="prices-config-text">VIP кресла</p>
@@ -258,46 +246,145 @@
             <h2 class="section-admin-header">Сетка сеансов</h2>
             <div class="section-admin-content">
                 <button type="button" class="add-film-btn" id="createHall"
-                onclick="document.getElementById('addFilmModal').showModal()">Добавить фильм</button>
+                    onclick="document.getElementById('addFilmModal').showModal()">Добавить фильм</button>
 
 
                 <ul class="movie-list">
                     <li class="movie-list-item">
-                        <div class="movie-poster-mini"></div>
+                        <img class="movie-poster-mini"
+                            src="https://shfe-diplom.neto-server.ru/storage/app/img/posters/kypVfR2FzBTd6QoJ0NhmVCw0MQsiVkcq1sB0HESo.png"
+                            alt="Постер к фильму Leon">
                         <div class="movie-description-mini">
-                            <p class="movie-title-mini"></p>
-                            <p class="movie-duration-mini"></p>
+                            <p class="movie-title-mini">Leon</p>
+                            <p class="movie-duration-mini">100 минут</p>
+                            <div class="remove-movie-img"></div>
                         </div>
-                        <div></div>
                     </li>
-                    <li class="films-item">
-                        Зал 2
+                    <li class="movie-list-item">
+                        <img class="movie-poster-mini"
+                            src="https://shfe-diplom.neto-server.ru/storage/app/img/posters/kypVfR2FzBTd6QoJ0NhmVCw0MQsiVkcq1sB0HESo.png"
+                            alt="Постер к фильму Leon">
+                        <div class="movie-description-mini">
+                            <p class="movie-title-mini">Leon</p>
+                            <p class="movie-duration-mini">100 минут</p>
+                            <div class="remove-movie-img"></div>
+                        </div>
+                    </li>
+                    <li class="movie-list-item">
+                        <img class="movie-poster-mini"
+                            src="https://shfe-diplom.neto-server.ru/storage/app/img/posters/kypVfR2FzBTd6QoJ0NhmVCw0MQsiVkcq1sB0HESo.png"
+                            alt="Постер к фильму Leon">
+                        <div class="movie-description-mini">
+                            <p class="movie-title-mini">Leon</p>
+                            <p class="movie-duration-mini">100 минут</p>
+                            <div class="remove-movie-img"></div>
+                        </div>
+                    </li>
+                    <li class="movie-list-item">
+                        <img class="movie-poster-mini"
+                            src="https://shfe-diplom.neto-server.ru/storage/app/img/posters/kypVfR2FzBTd6QoJ0NhmVCw0MQsiVkcq1sB0HESo.png"
+                            alt="Постер к фильму Leon">
+                        <div class="movie-description-mini">
+                            <p class="movie-title-mini">Leon</p>
+                            <p class="movie-duration-mini">100 минут</p>
+                            <div class="remove-movie-img"></div>
+                        </div>
+                    </li>
+                    <li class="movie-list-item">
+                        <img class="movie-poster-mini"
+                            src="https://shfe-diplom.neto-server.ru/storage/app/img/posters/kypVfR2FzBTd6QoJ0NhmVCw0MQsiVkcq1sB0HESo.png"
+                            alt="Постер к фильму Leon">
+                        <div class="movie-description-mini">
+                            <p class="movie-title-mini">Leon</p>
+                            <p class="movie-duration-mini">100 минут</p>
+                            <div class="remove-movie-img"></div>
+                        </div>
                     </li>
                 </ul>
 
+                <ul class="seances-timeline-list">
+                    <li class="seances-timeline-item">
+                        <p class="seances-timeline-title">Зал 1</p>
+                        <div class="seances-timeline">
+                            <div class="seances-timeline-movie movie-1">
+                                <p class="seances-timeline-movie-title">Миссия выполнима</p>
+                                <p class="seances-timeline-movie-start">10:00</p>   
+                            </div>
+                            <div class="seances-timeline-movie movie-2">
+                                <p class="seances-timeline-movie-title">Миссия выполнима</p>
+                                <p class="seances-timeline-movie-start">17:00</p>   
+                            </div>
+                            <div class="seances-timeline-movie movie-3">
+                                <p class="seances-timeline-movie-title">Звёздные войны</p>
+                                <p class="seances-timeline-movie-start">19:00</p>   
+                            </div>
+                        </div>
+                    </li>
+                    <li class="seances-timeline-item">
+                        <p class="seances-timeline-title">Зал 2</p>
+                        <div class="seances-timeline">
+                            <div class="seances-timeline-movie movie-4">
+                                <p class="seances-timeline-movie-title">Миссия выполнима</p>
+                                <p class="seances-timeline-movie-start">14:00</p>                                
+                            </div>
+                            <div class="seances-timeline-movie movie-5">
+                                <p class="seances-timeline-movie-title">Звёздные войны</p>
+                                <p class="seances-timeline-movie-start">18:00</p>   
+                            </div>
+                        </div>
+                    </li>
+                </ul>
 
-                <p class="prices-config-header">Установите цены для типов кресел:</p>
-                <div class="prices-config-wrapper">
-                    <label for="standartPriceValue" class="prices-config-label">Цена, рублей</label>
-                    <div class="prices-config-row">
-                        <input type="number" class="prices-config-input" id="standartPriceValue">
-                        <p class="prices-config-text"> за </p>
-                        <div class="halls-seats standart"></div>
-                        <p class="prices-config-text">обычные кресла</p>
-                    </div>
-                    <label for="standartPriceValue" class="prices-config-label">Цена, рублей</label>
-                    <div class="prices-config-row">
-                        <input type="number" class="prices-config-input" id="standartPriceValue">
-                        <p class="prices-config-text"> за </p>
-                        <div class="halls-seats vip"></div>
-                        <p class="prices-config-text">VIP кресла</p>
-                    </div>
-                </div>
-
-                <div class="config-btn-wrapper">
+                <div class="config-btn-wrapper" style="margin-bottom: 39px;">
                     <button type="button" class="config-btn cancel" id="cancelPricesConfig">Отмена</button>
                     <button type="button" class="config-btn save" id="savePricesConfig">Сохранить</button>
                 </div>
+            </div>
+        </section>
+
+        <section class="section-admin">
+            <h2 class="section-admin-header">Открыть продажи</h2>
+            <div class="section-admin-content">
+                <p class="opening-closing-header">Выберите залл для открытия/закрытия продаж:</p>
+                <ul class="opening-closing">
+                    <li class="halls-config-item">
+                        Зал 1
+                    </li>
+                    <li class="halls-config-item active">
+                        Зал 2
+                    </li>
+                    <li class="halls-config-item">
+                        Большой зал
+                    </li>
+                    <li class="halls-config-item">
+                        Малый зал
+                    </li>
+                    <li class="halls-config-item">
+                        vip-зал
+                    </li>
+                    <li class="halls-config-item">
+                        vip-зал
+                    </li>
+                    <li class="halls-config-item">
+                        vip-зал
+                    </li>
+                    <li class="halls-config-item">
+                        vip-зал
+                    </li>
+                    <li class="halls-config-item">
+                        vip-зал
+                    </li>
+                    <li class="halls-config-item">
+                        vip-зал
+                    </li>
+                    <li class="halls-config-item">
+                        vip-зал
+                    </li>
+                </ul>
+
+                <p class="opening-closing-info">Всё готово к открытию</p>
+
+                <button type="button" class="opening-closing-btn" id="openingClosingBtn">Открыть продажу билетов</button>
             </div>
         </section>
     </main>
