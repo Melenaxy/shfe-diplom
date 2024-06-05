@@ -389,24 +389,43 @@
         </section>
     </main>
 
-    <dialog id="createHallModal">
-        <h2 id="subscribe-header">Данные для подписки</h2>
-        <button onclick="this.closest('dialog').close()" aria-label="Закрыть">
-            ×
-        </button>
+    <dialog class="create-hall-modal" id="createHallModal">
+        <section class="section-admin">
+            <header class="modal-admin-header-wrapper">
+                <h2 class="modal-admin-header">Добавление фильма</h2>
+                <button class="modal-header-close-btn" onclick="this.closest('dialog').close()" aria-label="Закрыть"></button>    
+            </header>
+            <div class="modal-admin-content">
+                <form>
+                    <label>
+                        Название фильма
+                        <input type="text" autofocus>
+                    </label>
+                    <label>
+                        Продолжительность фильма (мин.)
+                        <input type="number">
+                    </label>
+                    <label>
+                        Описание фильма
+                        <textarea name="" id=""></textarea>
+                    </label>
+                    <label>
+                        Страна
+                        <input type="number">
+                    </label>
+                </form>
 
-        <form>
-            <label>
-                Введите ваш email
-                <input type="email" autofocus>
-            </label>
-        </form>
 
-        <div>
-            <button>Подписаться</button>
-            <button onclick="this.closest('dialog').close()" aria-label="Отменить">Отменить</button>
-        </div>
+
+                <div>
+                    <button>Подписаться</button>
+                    <button onclick="this.closest('dialog').close()" aria-label="Отменить">Отменить</button>
+                </div>
+            </div>
+        </section>
     </dialog>
+
+    <script src="scripts/admin.js" type="module"></script>
 </body>
 
 </html>
