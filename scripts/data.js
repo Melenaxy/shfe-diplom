@@ -77,5 +77,40 @@ export class Data {
             return null;
         }
     }
+
+    async addNewHall(model) {
+        try {
+            let path = `${this.URL}/hall`;
+            let result = await fetch(path, {
+                method: 'POST',
+                body: model
+            })
+            if (result.ok === true) {
+                return result.json();
+            } else {
+                return null;
+            }
+        } catch (e) {
+            console.error(e);
+            return null;
+        }
+    }
+
+    async removeHall(id) {
+        try {
+            let path = `${this.URL}/hall/${id}`;
+            let result = await fetch(path, {
+                method: 'DELETE',
+            })
+            if (result.ok === true) {
+                return result.json();
+            } else {
+                return null;
+            }
+        } catch (e) {
+            console.error(e);
+            return null;
+        }
+    }
 }
 

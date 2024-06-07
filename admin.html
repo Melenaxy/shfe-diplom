@@ -19,16 +19,7 @@
             <h2 class="section-admin-header">Управление залами</h2>
             <div class="section-admin-content">
                 <p class="halls-list-header">Доступные залы:</p>
-                <ul class="halls-list">
-                    <li class="halls-list-item">
-                        <div class="halls-list-item-text">Зал 1</div>
-                        <div class="halls-list-item-img"></div>
-                    </li>
-                    <li class="halls-list-item">
-                        <div class="halls-list-item-text">Зал 2</div>
-                        <div class="halls-list-item-img"></div>
-                    </li>
-                </ul>
+                <ul class="halls-list" id="hallsList"></ul>
                 <button type="button" class="create-hall-btn" id="createHall"
                     onclick="document.getElementById('createHallModal').showModal()">Создать зал</button>
             </div>
@@ -38,14 +29,7 @@
             <h2 class="section-admin-header">Конфигурация залов</h2>
             <div class="section-admin-content">
                 <p class="halls-config-header">Выберите зал для конфигурации:</p>
-                <ul class="halls-config">
-                    <li class="halls-config-item active">
-                        Зал 1
-                    </li>
-                    <li class="halls-config-item">
-                        Зал 2
-                    </li>
-                </ul>
+                <ul class="halls-config-list" id="hallsConfig"></ul>
                 <p class="halls-rows-seats-header">Укажите количество рядов и максимальное количество кресел в ряду:</p>
                 <div class="halls-rows-seats">
                     <label class="halls-rows-seats-label">
@@ -209,7 +193,7 @@
             <h2 class="section-admin-header">Конфигурация цен</h2>
             <div class="section-admin-content">
                 <p class="halls-config-header">Выберите зал для конфигурации:</p>
-                <ul class="halls-config">
+                <ul class="halls-config-list">
                     <li class="halls-config-item">
                         Зал 1
                     </li>
@@ -308,15 +292,15 @@
                         <div class="seances-timeline">
                             <div class="seances-timeline-movie movie-1">
                                 <p class="seances-timeline-movie-title">Миссия выполнима</p>
-                                <p class="seances-timeline-movie-start">10:00</p>   
+                                <p class="seances-timeline-movie-start">10:00</p>
                             </div>
                             <div class="seances-timeline-movie movie-2">
                                 <p class="seances-timeline-movie-title">Миссия выполнима</p>
-                                <p class="seances-timeline-movie-start">17:00</p>   
+                                <p class="seances-timeline-movie-start">17:00</p>
                             </div>
                             <div class="seances-timeline-movie movie-3">
                                 <p class="seances-timeline-movie-title">Звёздные войны</p>
-                                <p class="seances-timeline-movie-start">19:00</p>   
+                                <p class="seances-timeline-movie-start">19:00</p>
                             </div>
                         </div>
                     </li>
@@ -325,11 +309,11 @@
                         <div class="seances-timeline">
                             <div class="seances-timeline-movie movie-4">
                                 <p class="seances-timeline-movie-title">Миссия выполнима</p>
-                                <p class="seances-timeline-movie-start">14:00</p>                                
+                                <p class="seances-timeline-movie-start">14:00</p>
                             </div>
                             <div class="seances-timeline-movie movie-5">
                                 <p class="seances-timeline-movie-title">Звёздные войны</p>
-                                <p class="seances-timeline-movie-start">18:00</p>   
+                                <p class="seances-timeline-movie-start">18:00</p>
                             </div>
                         </div>
                     </li>
@@ -384,20 +368,47 @@
 
                 <p class="opening-closing-info">Всё готово к открытию</p>
 
-                <button type="button" class="opening-closing-btn" id="openingClosingBtn">Открыть продажу билетов</button>
+                <button type="button" class="opening-closing-btn" id="openingClosingBtn">Открыть продажу
+                    билетов</button>
             </div>
         </section>
     </main>
 
-    <dialog class="create-hall-modal" id="createHallModal">
+    <dialog class="dialog-modal" id="createHallModal">
+        <section class="section-admin">
+            <header class="modal-admin-header-wrapper">
+                <h2 class="modal-admin-header">Добавление зала</h2>
+                <button class="modal-header-close-btn" onclick="this.closest('dialog').close()"
+                    aria-label="Закрыть"></button>
+            </header>
+            <div class="modal-admin-content">
+                <form method="dialog" id="createHallForm">
+                    <label class="modal-label">
+                        Название зала
+                        <input type="text" class="modal-text-input" name="hallName" placeholder="Например, «Зал 1»"
+                            autofocus>
+                    </label>
+
+                    <div class="create-hall-btns">
+                        <button class="add-hall-btn" id="addHallBtn">Добавить зал</button>
+                        <button class="cancel-hall-btn" onclick="this.closest('dialog').close()" aria-label="Отменить">Отменить</button>
+                    </div>
+
+                </form>
+            </div>
+        </section>
+    </dialog>
+
+    <dialog class="dialog-modal" id="addFilmModal">
         <section class="section-admin">
             <header class="modal-admin-header-wrapper">
                 <h2 class="modal-admin-header">Добавление фильма</h2>
-                <button class="modal-header-close-btn" onclick="this.closest('dialog').close()" aria-label="Закрыть"></button>    
+                <button class="modal-header-close-btn" onclick="this.closest('dialog').close()"
+                    aria-label="Закрыть"></button>
             </header>
             <div class="modal-admin-content">
                 <form>
-                    <label>
+                    <label class="modal-label">
                         Название фильма
                         <input type="text" autofocus>
                     </label>
