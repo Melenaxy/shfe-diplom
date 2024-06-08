@@ -149,5 +149,23 @@ export class Data {
         }
     }
 
+    async openCloseHall(id, params) {
+        try {
+            let path = `${this.URL}/open/${id}`;
+            let result = await fetch(path, {
+                method: 'POST',
+                body: params,
+            })
+            if (result.ok === true) {
+                return result.json();
+            } else {
+                return null;
+            }
+        } catch (e) {
+            console.error(e);
+            return null;
+        }
+    }
+
 }
 

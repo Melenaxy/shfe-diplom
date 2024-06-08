@@ -728,6 +728,11 @@ body:has(dialog[open]) {
     margin: 0 auto;
 }
 
+.section-admin {
+    max-width: 960px;
+    margin: 0 auto;
+}
+
 .section-admin-header {
     max-width: 962px;
     margin: 0 auto;
@@ -985,6 +990,7 @@ body:has(dialog[open]) {
 
 .config-btn-wrapper {
     display: flex;
+    flex-wrap: wrap;
     justify-content: center;
     gap: 15px;
     margin: 0 auto;
@@ -1210,7 +1216,7 @@ body:has(dialog[open]) {
     line-height: 18px;
 }
 
-.opening-closing {
+.opening-closing-list {
     display: flex;
     flex-wrap: wrap;
     row-gap: 3px;
@@ -1230,7 +1236,7 @@ body:has(dialog[open]) {
 
 .opening-closing-btn {
     display: block;
-    width: 270px;
+    width: 330px;
     height: 40px;
     padding: 12px 29px;
     margin: 0 auto;
@@ -1327,8 +1333,10 @@ dialog[open]::backdrop {
 
 .create-hall-btns {
     display: flex;
-    flex-direction: column;
-    align-items: center;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 15px;
+    margin: 0 auto;
 }
 
 .add-hall-btn,

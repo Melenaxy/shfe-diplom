@@ -103,8 +103,8 @@
                 </div>
 
                 <div class="config-btn-wrapper">
-                    <button type="button" class="config-btn cancel" id="cancelPricesConfig" disabled>Отмена</button>
-                    <button type="button" class="config-btn save" id="savePricesConfig" disabled>Сохранить</button>
+                    <button type="button" class="config-btn cancel" id="cancelPricesBtn" disabled>Отмена</button>
+                    <button type="button" class="config-btn save" id="savePricesBtn" disabled>Сохранить</button>
                 </div>
             </div>
         </section>
@@ -214,12 +214,11 @@
             <h2 class="section-admin-header">Открыть продажи</h2>
             <div class="section-admin-content">
                 <p class="opening-closing-header">Выберите залл для открытия/закрытия продаж:</p>
-                <ul class="opening-closing" id="openingClosingHalls"></ul>
+                <ul class="opening-closing-list" id="openCloseHalls"></ul>
 
-                <p class="opening-closing-info">Всё готово к открытию</p>
+                <p class="opening-closing-info" id="openCloseInfo">Всё готово к открытию</p>
 
-                <button type="button" class="opening-closing-btn" id="openingClosingBtn">Открыть продажу
-                    билетов</button>
+                <button type="button" class="opening-closing-btn" id="openCloseBtn">Открыть продажу билетов</button>
             </div>
         </section>
     </main>

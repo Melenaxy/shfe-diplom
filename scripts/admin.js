@@ -19,11 +19,15 @@ class Admin {
         this.pricesConfig = document.getElementById('pricesConfig');
         this.standartPriceValue = document.getElementById('standartPriceValue');
         this.vipPriceValue = document.getElementById('vipPriceValue');
-        this.savePricesConfig = document.getElementById('savePricesConfig');
-        this.cancelPricesConfig = document.getElementById('cancelPricesConfig');
+        this.savePricesBtn = document.getElementById('savePricesBtn');
+        this.cancelPricesBtn = document.getElementById('cancelPricesBtn');
 
         this.createHallModal = document.getElementById('createHallModal');
         this.createHallForm = document.getElementById('createHallForm');
+
+        this.openCloseHalls = document.getElementById('openCloseHalls');
+        this.openCloseInfo = document.getElementById('openCloseInfo');
+        this.openCloseBtn = document.getElementById('openCloseBtn');
 
         this.addEventListeners();
         this.initData();
@@ -45,8 +49,10 @@ class Admin {
 
         this.standartPriceValue.addEventListener('input', (e) => this.standartPriceHandler());
         this.vipPriceValue.addEventListener('input', (e) => this.vipPriceHandler());
-        this.savePricesConfig.addEventListener('click', () => this.savePricessConfig());
-        this.cancelPricesConfig.addEventListener('click', () => this.cancelPricessConfig());
+        this.savePricesBtn.addEventListener('click', () => this.savePricessConfig());
+        this.cancelPricesBtn.addEventListener('click', () => this.cancelPricessConfig());
+
+        this.openCloseBtn.addEventListener('click', () => this.openCloseBtnHandler());
     }
 
     async initData() {
@@ -69,6 +75,7 @@ class Admin {
             this.hallsList.innerHTML = '';
             this.hallsConfig.innerHTML = '';
             this.pricesConfig.innerHTML = '';
+            this.openCloseHalls.innerHTML = '';
             for (let hall of this.halls) {
                 this.hallsList.innerHTML += `
                     <li class="halls-list-item">
@@ -83,6 +90,10 @@ class Admin {
                     <li class="halls-config-item prices-config" id="${hall.id}">
                         ${hall.hall_name}
                     </li>`;
+                this.openCloseHalls.innerHTML += `
+                    <li class="halls-config-item opening-closing" id="${hall.id}">
+                        ${hall.hall_name}
+                    </li>`;
             };
             this.removeHallBtns = Array.from(document.querySelectorAll('.halls-list-item-img'));
             this.removeHallBtns.forEach(btn => btn.addEventListener('click', (e) => this.removeHall(e)));
@@ -95,6 +106,10 @@ class Admin {
             this.pricesConfigArray = Array.from(document.querySelectorAll('.prices-config'));
             this.pricesConfigArray.forEach(btn => btn.addEventListener('click', (e) => this.configPrices(e)));
             this.pricesConfigArray[0].dispatchEvent(event);
+
+            this.openCloseArray = Array.from(document.querySelectorAll('.opening-closing'));
+            this.openCloseArray.forEach(btn => btn.addEventListener('click', (e) => this.openingClosing(e)));
+            this.openCloseArray[0].dispatchEvent(event);
         }
     }
 
@@ -103,7 +118,6 @@ class Admin {
         let name = formData.get('hallName');
         this.createHallForm.reset();
         if (formData) {
-            console.log(name)
             this.apiData.addNewHall(formData).then(res => {
                 if (res.success) {
                     this.halls = res.result.halls;
@@ -203,7 +217,6 @@ class Admin {
         for (let i = 0; i < rows.length; i++) {
             arrayConfig.push([])
             for (const child of rows[i].children) {
-                console.log(child.classList[1]);
                 arrayConfig[i].push(child.classList[1])
             }
         };
@@ -240,8 +253,8 @@ class Admin {
             this.pricesConfigArray.forEach(s => s.classList.remove('active'));
             e.target.classList.add('active');
             this.currentHallPrices = this.halls.find(s => s.id === Number(e.target.id));
-            this.savePricesConfig.disabled = true;
-            this.cancelPricesConfig.disabled = true;
+            this.savePricesBtn.disabled = true;
+            this.cancelPricesBtn.disabled = true;
         };
 
         if (this.currentHallPrices) {
@@ -251,24 +264,24 @@ class Admin {
     }
 
     standartPriceHandler() {
-        this.savePricesConfig.disabled = false;
-        this.cancelPricesConfig.disabled = false;
+        this.savePricesBtn.disabled = false;
+        this.cancelPricesBtn.disabled = false;
 
         let value = Number(this.standartPriceValue.value);
-        this.savePricesConfig.disabled = false;
-        this.cancelPricesConfig.disabled = false;
+        this.savePricesBtn.disabled = false;
+        this.cancelPricesBtn.disabled = false;
         if (value !== this.currentHallPrices.hall_price_standart) {
             this.currentHallPrices.hall_price_standart = value;
         };
     }
 
     vipPriceHandler() {
-        this.savePricesConfig.disabled = false;
-        this.cancelPricesConfig.disabled = false;
+        this.savePricesBtn.disabled = false;
+        this.cancelPricesBtn.disabled = false;
 
         let value = Number(this.vipPriceValue.value);
-        this.savePricesConfig.disabled = false;
-        this.cancelPricesConfig.disabled = false;
+        this.savePricesBtn.disabled = false;
+        this.cancelPricesBtn.disabled = false;
         if (value !== this.currentHallPrices.hall_price_vip) {
             this.currentHallPrices.hall_price_vip = value;
         };
@@ -280,10 +293,9 @@ class Admin {
         params.set('priceVip', this.currentHallPrices.hall_price_vip);
 
         this.apiData.changePricesConfig(this.currentHallPrices.id, params).then(res => {
-            console.log(res)
             if (res.success) {
-                this.savePricesConfig.disabled = true;
-                this.cancelPricesConfig.disabled = true;
+                this.savePricesBtn.disabled = true;
+                this.cancelPricesBtn.disabled = true;
                 this.currentHallPrices = res.result;
                 this.configPrices();
             } else {
@@ -296,7 +308,39 @@ class Admin {
         this.initData();
     }
 
+    openingClosing(e) {
+        if (e) {
+            this.openCloseArray.forEach(s => s.classList.remove('active'));
+            e.target.classList.add('active');
+            this.currentHallforOpening = this.halls.find(s => s.id === Number(e.target.id));
+        };
 
+        if (this.currentHallforOpening && this.currentHallforOpening.hall_open === 1) {
+            this.openCloseInfo.textContent = 'Зал открыт';
+            this.openCloseBtn.textContent = 'Приостановить продажу билетов';
+        } else {
+            this.openCloseInfo.textContent = 'Всё готово к открытию';
+            this.openCloseBtn.textContent = 'Открыть продажу билетов';
+        };
+    }
+
+    openCloseBtnHandler() {
+        const params = new FormData();
+        if (this.openCloseBtn.textContent === 'Открыть продажу билетов') {
+            params.set('hallOpen', '1');
+        } else {
+            params.set('hallOpen', '0');
+        };
+
+        this.apiData.openCloseHall(this.currentHallforOpening.id, params).then(res => {
+            if (res.success) {
+                this.currentHallforOpening = res.result.halls.find(s => s.id === this.currentHallforOpening.id)
+                this.openingClosing();
+            } else {
+                alert(res.error);
+            }
+        })
+    }
 }
 
 new Admin();
