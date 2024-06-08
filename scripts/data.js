@@ -112,5 +112,42 @@ export class Data {
             return null;
         }
     }
+
+    async changeHallConfig(id, params) {
+        try {
+            let path = `${this.URL}/hall/${id}`;
+            let result = await fetch(path, {
+                method: 'POST',
+                body: params,
+            })
+            if (result.ok === true) {
+                return result.json();
+            } else {
+                return null;
+            }
+        } catch (e) {
+            console.error(e);
+            return null;
+        }
+    }
+
+    async changePricesConfig(id, params) {
+        try {
+            let path = `${this.URL}/price/${id}`;
+            let result = await fetch(path, {
+                method: 'POST',
+                body: params,
+            })
+            if (result.ok === true) {
+                return result.json();
+            } else {
+                return null;
+            }
+        } catch (e) {
+            console.error(e);
+            return null;
+        }
+    }
+
 }
 

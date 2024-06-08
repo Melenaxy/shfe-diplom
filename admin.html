@@ -34,12 +34,12 @@
                 <div class="halls-rows-seats">
                     <label class="halls-rows-seats-label">
                         Рядов, шт
-                        <input type="number" class="halls-rows-seats-text" min="1" max="10">
+                        <input type="number" class="halls-rows-seats-text" id="hallRows" min="1" max="10">
                     </label>
                     <div class="multiplier"> Х </div>
                     <label class="halls-rows-seats-label">
                         Мест, шт
-                        <input type="number" class="halls-rows-seats-text" min="1" max="10">
+                        <input type="number" class="halls-rows-seats-text" id="hallPlaces" min="1" max="10">
                     </label>
                 </div>
                 <p class="halls-seats-header">Теперь вы можете указать типы кресел на схеме зала:</p>
@@ -61,130 +61,13 @@
                 <p class="halls-seats-config-hint">Чтобы изменить вид кресла, нажмите по нему</p>
                 <div class="halls-seats-config-wrapper">
                     <p class="halls-seats-config-header">экран</p>
-                    <div class="halls-rows-config">
-                        <div class="halls-seats disabled"></div>
-                        <div class="halls-seats disabled"></div>
-                        <div class="halls-seats disabled"></div>
-                        <div class="halls-seats disabled"></div>
-                        <div class="halls-seats standart"></div>
-                        <div class="halls-seats standart"></div>
-                        <div class="halls-seats disabled"></div>
-                        <div class="halls-seats disabled"></div>
-                        <div class="halls-seats disabled"></div>
-                        <div class="halls-seats disabled"></div>
-                    </div>
-                    <div class="halls-rows-config">
-                        <div class="halls-seats disabled"></div>
-                        <div class="halls-seats disabled"></div>
-                        <div class="halls-seats disabled"></div>
-                        <div class="halls-seats standart"></div>
-                        <div class="halls-seats standart"></div>
-                        <div class="halls-seats standart"></div>
-                        <div class="halls-seats standart"></div>
-                        <div class="halls-seats disabled"></div>
-                        <div class="halls-seats disabled"></div>
-                        <div class="halls-seats disabled"></div>
-                    </div>
-                    <div class="halls-rows-config">
-                        <div class="halls-seats disabled"></div>
-                        <div class="halls-seats disabled"></div>
-                        <div class="halls-seats standart"></div>
-                        <div class="halls-seats standart"></div>
-                        <div class="halls-seats standart"></div>
-                        <div class="halls-seats standart"></div>
-                        <div class="halls-seats standart"></div>
-                        <div class="halls-seats standart"></div>
-                        <div class="halls-seats disabled"></div>
-                        <div class="halls-seats disabled"></div>
-                    </div>
-                    <div class="halls-rows-config">
-                        <div class="halls-seats disabled"></div>
-                        <div class="halls-seats standart"></div>
-                        <div class="halls-seats standart"></div>
-                        <div class="halls-seats standart"></div>
-                        <div class="halls-seats vip"></div>
-                        <div class="halls-seats vip"></div>
-                        <div class="halls-seats standart"></div>
-                        <div class="halls-seats standart"></div>
-                        <div class="halls-seats standart"></div>
-                        <div class="halls-seats disabled"></div>
-                    </div>
-                    <div class="halls-rows-config">
-                        <div class="halls-seats disabled"></div>
-                        <div class="halls-seats standart"></div>
-                        <div class="halls-seats standart"></div>
-                        <div class="halls-seats standart"></div>
-                        <div class="halls-seats vip"></div>
-                        <div class="halls-seats vip"></div>
-                        <div class="halls-seats standart"></div>
-                        <div class="halls-seats standart"></div>
-                        <div class="halls-seats standart"></div>
-                        <div class="halls-seats disabled"></div>
-                    </div>
-                    <div class="halls-rows-config">
-                        <div class="halls-seats disabled"></div>
-                        <div class="halls-seats standart"></div>
-                        <div class="halls-seats standart"></div>
-                        <div class="halls-seats standart"></div>
-                        <div class="halls-seats vip"></div>
-                        <div class="halls-seats vip"></div>
-                        <div class="halls-seats standart"></div>
-                        <div class="halls-seats standart"></div>
-                        <div class="halls-seats standart"></div>
-                        <div class="halls-seats disabled"></div>
-                    </div>
-                    <div class="halls-rows-config">
-                        <div class="halls-seats disabled"></div>
-                        <div class="halls-seats standart"></div>
-                        <div class="halls-seats standart"></div>
-                        <div class="halls-seats standart"></div>
-                        <div class="halls-seats vip"></div>
-                        <div class="halls-seats vip"></div>
-                        <div class="halls-seats standart"></div>
-                        <div class="halls-seats standart"></div>
-                        <div class="halls-seats standart"></div>
-                        <div class="halls-seats disabled"></div>
-                    </div>
-                    <div class="halls-rows-config">
-                        <div class="halls-seats disabled"></div>
-                        <div class="halls-seats standart"></div>
-                        <div class="halls-seats standart"></div>
-                        <div class="halls-seats standart"></div>
-                        <div class="halls-seats vip"></div>
-                        <div class="halls-seats vip"></div>
-                        <div class="halls-seats standart"></div>
-                        <div class="halls-seats standart"></div>
-                        <div class="halls-seats standart"></div>
-                        <div class="halls-seats disabled"></div>
-                    </div>
-                    <div class="halls-rows-config">
-                        <div class="halls-seats disabled"></div>
-                        <div class="halls-seats standart"></div>
-                        <div class="halls-seats standart"></div>
-                        <div class="halls-seats standart"></div>
-                        <div class="halls-seats vip"></div>
-                        <div class="halls-seats vip"></div>
-                        <div class="halls-seats standart"></div>
-                        <div class="halls-seats standart"></div>
-                        <div class="halls-seats standart"></div>
-                        <div class="halls-seats disabled"></div>
-                    </div>
-                    <div class="halls-rows-config">
-                        <div class="halls-seats disabled"></div>
-                        <div class="halls-seats standart"></div>
-                        <div class="halls-seats standart"></div>
-                        <div class="halls-seats standart"></div>
-                        <div class="halls-seats vip"></div>
-                        <div class="halls-seats vip"></div>
-                        <div class="halls-seats standart"></div>
-                        <div class="halls-seats standart"></div>
-                        <div class="halls-seats standart"></div>
-                        <div class="halls-seats disabled"></div>
+                    <div id="seatsPlacesConfig">
+
                     </div>
                 </div>
                 <div class="config-btn-wrapper">
-                    <button type="button" class="config-btn cancel" id="cancelSeatsConfig">Отмена</button>
-                    <button type="button" class="config-btn save" id="saveSeatsConfig">Сохранить</button>
+                    <button type="button" class="config-btn cancel" id="cancelSeatsConfig" disabled>Отмена</button>
+                    <button type="button" class="config-btn save" id="saveSeatsConfig" disabled>Сохранить</button>
                 </div>
             </div>
         </section>
@@ -193,7 +76,7 @@
             <h2 class="section-admin-header">Конфигурация цен</h2>
             <div class="section-admin-content">
                 <p class="halls-config-header">Выберите зал для конфигурации:</p>
-                <ul class="halls-config-list">
+                <ul class="halls-config-list" id="pricesConfig">
                     <li class="halls-config-item">
                         Зал 1
                     </li>
@@ -210,9 +93,9 @@
                         <div class="halls-seats standart"></div>
                         <p class="prices-config-text">обычные кресла</p>
                     </div>
-                    <label for="standartPriceValue" class="prices-config-label">Цена, рублей</label>
+                    <label for="vipPriceValue" class="prices-config-label">Цена, рублей</label>
                     <div class="prices-config-row">
-                        <input type="number" class="prices-config-input" id="standartPriceValue" min="1">
+                        <input type="number" class="prices-config-input" id="vipPriceValue" min="1">
                         <p class="prices-config-text"> за </p>
                         <div class="halls-seats vip"></div>
                         <p class="prices-config-text">VIP кресла</p>
@@ -220,8 +103,8 @@
                 </div>
 
                 <div class="config-btn-wrapper">
-                    <button type="button" class="config-btn cancel" id="cancelPricesConfig">Отмена</button>
-                    <button type="button" class="config-btn save" id="savePricesConfig">Сохранить</button>
+                    <button type="button" class="config-btn cancel" id="cancelPricesConfig" disabled>Отмена</button>
+                    <button type="button" class="config-btn save" id="savePricesConfig" disabled>Сохранить</button>
                 </div>
             </div>
         </section>
@@ -229,7 +112,7 @@
         <section class="section-admin">
             <h2 class="section-admin-header">Сетка сеансов</h2>
             <div class="section-admin-content">
-                <button type="button" class="add-film-btn" id="createHall"
+                <button type="button" class="add-film-btn" id="createFilm"
                     onclick="document.getElementById('addFilmModal').showModal()">Добавить фильм</button>
 
 
@@ -320,8 +203,9 @@
                 </ul>
 
                 <div class="config-btn-wrapper" style="margin-bottom: 39px;">
-                    <button type="button" class="config-btn cancel" id="cancelPricesConfig">Отмена</button>
-                    <button type="button" class="config-btn save" id="savePricesConfig">Сохранить</button>
+                    <button type="button" class="config-btn cancel" id="addFilmBtn">Добавить фильм</button>
+                    <button type="button" class="config-btn save" id="addPosterBtn">Загрузить постер</button>
+                    <button type="button" class="config-btn save" id="cancelFilmBtn">Сохранить</button>
                 </div>
             </div>
         </section>
@@ -330,41 +214,7 @@
             <h2 class="section-admin-header">Открыть продажи</h2>
             <div class="section-admin-content">
                 <p class="opening-closing-header">Выберите залл для открытия/закрытия продаж:</p>
-                <ul class="opening-closing">
-                    <li class="halls-config-item">
-                        Зал 1
-                    </li>
-                    <li class="halls-config-item active">
-                        Зал 2
-                    </li>
-                    <li class="halls-config-item">
-                        Большой зал
-                    </li>
-                    <li class="halls-config-item">
-                        Малый зал
-                    </li>
-                    <li class="halls-config-item">
-                        vip-зал
-                    </li>
-                    <li class="halls-config-item">
-                        vip-зал
-                    </li>
-                    <li class="halls-config-item">
-                        vip-зал
-                    </li>
-                    <li class="halls-config-item">
-                        vip-зал
-                    </li>
-                    <li class="halls-config-item">
-                        vip-зал
-                    </li>
-                    <li class="halls-config-item">
-                        vip-зал
-                    </li>
-                    <li class="halls-config-item">
-                        vip-зал
-                    </li>
-                </ul>
+                <ul class="opening-closing" id="openingClosingHalls"></ul>
 
                 <p class="opening-closing-info">Всё готово к открытию</p>
 
@@ -391,7 +241,8 @@
 
                     <div class="create-hall-btns">
                         <button class="add-hall-btn" id="addHallBtn">Добавить зал</button>
-                        <button class="cancel-hall-btn" onclick="this.closest('dialog').close()" aria-label="Отменить">Отменить</button>
+                        <button class="cancel-hall-btn" onclick="this.closest('dialog').close()"
+                            aria-label="Отменить">Отменить</button>
                     </div>
 
                 </form>
@@ -410,7 +261,7 @@
                 <form>
                     <label class="modal-label">
                         Название фильма
-                        <input type="text" autofocus>
+                        <input type="text">
                     </label>
                     <label>
                         Продолжительность фильма (мин.)
@@ -418,7 +269,7 @@
                     </label>
                     <label>
                         Описание фильма
-                        <textarea name="" id=""></textarea>
+                        <textarea></textarea>
                     </label>
                     <label>
                         Страна

@@ -765,6 +765,7 @@ body:has(dialog[open]) {
 
 .section-admin-content {
     max-width: 962px;
+    min-height: 430px;
     margin: 0 auto;
     /* height: 245px; */
     padding: 35px 30px;
@@ -863,12 +864,14 @@ body:has(dialog[open]) {
     box-shadow: 0px 0px 3px 0px #0000001F;
     box-shadow: 0px 3px 3px 0px #0000003D;
     cursor: pointer;
+    transition: 0.3s;
 }
 
 .halls-config-item.active {
     height: 44px;
     background-color: #FFFFFF;
     box-shadow: 0px 6px 8px 0px #0000003D;
+    transition: 0.3s;
 }
 
 .halls-rows-seats {
@@ -922,6 +925,7 @@ body:has(dialog[open]) {
     height: 26px;
     border-radius: 4px;
     border: 1px solid #393939;
+    cursor: pointer;
 }
 
 .halls-seats.standart {
@@ -955,7 +959,7 @@ body:has(dialog[open]) {
 
 .halls-seats-config-wrapper {
     width: 100%;
-    height: 100%;
+    height: 450px;
     padding: 25px 0px 25px 0px;
     margin: 0 auto;
     margin-bottom: 22px;
@@ -1013,6 +1017,13 @@ body:has(dialog[open]) {
     width: 146px;
     background-color: #16A6AF;
     color: #FFFFFF;
+}
+
+
+.config-btn:disabled {
+    background-color: #666666;
+    color: #FFFFFF;
+    cursor: default;
 }
 
 .prices-config-wrapper {
