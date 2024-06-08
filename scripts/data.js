@@ -167,5 +167,40 @@ export class Data {
         }
     }
 
+    async addNewFilm(model) {
+        try {
+            let path = `${this.URL}/film`;
+            let result = await fetch(path, {
+                method: 'POST',
+                body: model
+            })
+            if (result.ok === true) {
+                return result.json();
+            } else {
+                return null;
+            }
+        } catch (e) {
+            console.error(e);
+            return null;
+        }
+    }
+
+    async removeFilm(id) {
+        try {
+            let path = `${this.URL}/film/${id}`;
+            let result = await fetch(path, {
+                method: 'DELETE',
+            })
+            if (result.ok === true) {
+                return result.json();
+            } else {
+                return null;
+            }
+        } catch (e) {
+            console.error(e);
+            return null;
+        }
+    }
+
 }
 

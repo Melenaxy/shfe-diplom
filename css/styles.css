@@ -733,20 +733,24 @@ body:has(dialog[open]) {
     margin: 0 auto;
 }
 
-.section-admin-header {
+.section-admin-header-wrapper {
+    position: relative;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
     max-width: 962px;
     margin: 0 auto;
-    padding: 20px 67px 20px 67px;
+    padding: 20px 33px 20px 67px;
     font-size: 22px;
     font-weight: 700;
     line-height: 25px;
     text-transform: uppercase;
     color: rgba(255, 255, 255, 1);
     background-color: rgba(99, 83, 108, 1);
-    position: relative;
 }
 
-.section-admin-header::before {
+.section-admin-header-wrapper::before {
     content: "";
     width: 15px;
     height: 15px;
@@ -758,23 +762,44 @@ body:has(dialog[open]) {
     left: 20px;
 }
 
-.section-admin-header::after {
-    content: url(../img/arrow-down.png);
-    display: block;
+.section-admin-header {
+    font-size: 22px;
+    font-weight: 700;
+    line-height: 25px;
+    text-transform: uppercase;
+    color: rgba(255, 255, 255, 1);
+}
+
+.admin-header-collapse-btn {
+    background-image: url("../img/arrow-down.png");
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: contain;
     width: 22px;
     height: 22px;
-    position: absolute;
-    top: 21px;
-    right: 34px;
+    background-color: rgba(99, 83, 108, 1);
+    border: none;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.admin-header-collapse-btn.collapse {
+    transform: rotate(180deg);
+    transition: 0.3s;
 }
 
 .section-admin-content {
     max-width: 962px;
     min-height: 430px;
     margin: 0 auto;
-    /* height: 245px; */
     padding: 35px 30px;
     background-color: rgba(234, 233, 235, 0.95);
+    transition: 0.8s;
+}
+
+.section-admin-content.collapse {
+    display: none;
+    transition: 0.8s;
 }
 
 .halls-list-header,
@@ -1025,6 +1050,17 @@ body:has(dialog[open]) {
     color: #FFFFFF;
 }
 
+.config-btn.addFilm, .config-btn.addPoster {
+    width: 205px;
+    background-color: #16A6AF;
+    color: #FFFFFF;
+}
+
+.config-btn.cancelFilm {
+    width: 205px;
+    background-color: #FFFFFF;
+    color: #000000;
+}
 
 .config-btn:disabled {
     background-color: #666666;
@@ -1126,6 +1162,7 @@ body:has(dialog[open]) {
     background-position: center;
     background-size: 12px 12px;
     background-color: #ffffff;
+    cursor: pointer;
 }
 
 .seances-timeline-list {
@@ -1291,6 +1328,7 @@ dialog[open]::backdrop {
 
 .modal-header-close-btn {
     background-image: url("../img/closeModal.png");
+    background-repeat: no-repeat;
     background-position: center;
     background-size: contain;
     width: 22px;
@@ -1339,12 +1377,16 @@ dialog[open]::backdrop {
     margin: 0 auto;
 }
 
+.create-hall-btns {
+    margin-top: 16px;
+}
+
 .add-hall-btn,
 .cancel-hall-btn {
     width: 200px;
     height: 40px;
     padding: 12px 32px;
-    margin-top: 15px;
+
     border: none;
     outline: none;
     border-radius: 3px;
@@ -1364,6 +1406,10 @@ dialog[open]::backdrop {
 .cancel-hall-btn {
     background-color: #FFFFFF;
     color: #63536C;
+}
+
+.poster-file-input {
+    visibility: hidden;
 }
 
 /*#endregion */

@@ -16,7 +16,10 @@
     </header>
     <main>
         <section class="section-admin">
-            <h2 class="section-admin-header">Управление залами</h2>
+            <header class="section-admin-header-wrapper">
+                <h2 class="section-admin-header">Управление залами</h2>
+                <button class="admin-header-collapse-btn"></button>
+            </header>
             <div class="section-admin-content">
                 <p class="halls-list-header">Доступные залы:</p>
                 <ul class="halls-list" id="hallsList"></ul>
@@ -26,7 +29,10 @@
         </section>
 
         <section class="section-admin">
-            <h2 class="section-admin-header">Конфигурация залов</h2>
+            <header class="section-admin-header-wrapper">
+                <h2 class="section-admin-header">Конфигурация залов</h2>
+                <button class="admin-header-collapse-btn"></button>
+            </header>
             <div class="section-admin-content">
                 <p class="halls-config-header">Выберите зал для конфигурации:</p>
                 <ul class="halls-config-list" id="hallsConfig"></ul>
@@ -73,7 +79,10 @@
         </section>
 
         <section class="section-admin">
-            <h2 class="section-admin-header">Конфигурация цен</h2>
+            <header class="section-admin-header-wrapper">
+                <h2 class="section-admin-header">Конфигурация цен</h2>
+                <button class="admin-header-collapse-btn"></button>
+            </header>
             <div class="section-admin-content">
                 <p class="halls-config-header">Выберите зал для конфигурации:</p>
                 <ul class="halls-config-list" id="pricesConfig">
@@ -110,64 +119,16 @@
         </section>
 
         <section class="section-admin">
-            <h2 class="section-admin-header">Сетка сеансов</h2>
+            <header class="section-admin-header-wrapper">
+                <h2 class="section-admin-header">Сетка сеансов</h2>
+                <button class="admin-header-collapse-btn"></button>
+            </header>
             <div class="section-admin-content">
                 <button type="button" class="add-film-btn" id="createFilm"
                     onclick="document.getElementById('addFilmModal').showModal()">Добавить фильм</button>
 
 
-                <ul class="movie-list">
-                    <li class="movie-list-item">
-                        <img class="movie-poster-mini"
-                            src="https://shfe-diplom.neto-server.ru/storage/app/img/posters/kypVfR2FzBTd6QoJ0NhmVCw0MQsiVkcq1sB0HESo.png"
-                            alt="Постер к фильму Leon">
-                        <div class="movie-description-mini">
-                            <p class="movie-title-mini">Leon</p>
-                            <p class="movie-duration-mini">100 минут</p>
-                            <div class="remove-movie-img"></div>
-                        </div>
-                    </li>
-                    <li class="movie-list-item">
-                        <img class="movie-poster-mini"
-                            src="https://shfe-diplom.neto-server.ru/storage/app/img/posters/kypVfR2FzBTd6QoJ0NhmVCw0MQsiVkcq1sB0HESo.png"
-                            alt="Постер к фильму Leon">
-                        <div class="movie-description-mini">
-                            <p class="movie-title-mini">Leon</p>
-                            <p class="movie-duration-mini">100 минут</p>
-                            <div class="remove-movie-img"></div>
-                        </div>
-                    </li>
-                    <li class="movie-list-item">
-                        <img class="movie-poster-mini"
-                            src="https://shfe-diplom.neto-server.ru/storage/app/img/posters/kypVfR2FzBTd6QoJ0NhmVCw0MQsiVkcq1sB0HESo.png"
-                            alt="Постер к фильму Leon">
-                        <div class="movie-description-mini">
-                            <p class="movie-title-mini">Leon</p>
-                            <p class="movie-duration-mini">100 минут</p>
-                            <div class="remove-movie-img"></div>
-                        </div>
-                    </li>
-                    <li class="movie-list-item">
-                        <img class="movie-poster-mini"
-                            src="https://shfe-diplom.neto-server.ru/storage/app/img/posters/kypVfR2FzBTd6QoJ0NhmVCw0MQsiVkcq1sB0HESo.png"
-                            alt="Постер к фильму Leon">
-                        <div class="movie-description-mini">
-                            <p class="movie-title-mini">Leon</p>
-                            <p class="movie-duration-mini">100 минут</p>
-                            <div class="remove-movie-img"></div>
-                        </div>
-                    </li>
-                    <li class="movie-list-item">
-                        <img class="movie-poster-mini"
-                            src="https://shfe-diplom.neto-server.ru/storage/app/img/posters/kypVfR2FzBTd6QoJ0NhmVCw0MQsiVkcq1sB0HESo.png"
-                            alt="Постер к фильму Leon">
-                        <div class="movie-description-mini">
-                            <p class="movie-title-mini">Leon</p>
-                            <p class="movie-duration-mini">100 минут</p>
-                            <div class="remove-movie-img"></div>
-                        </div>
-                    </li>
-                </ul>
+                <ul class="movie-list" id="filmsList"></ul>
 
                 <ul class="seances-timeline-list">
                     <li class="seances-timeline-item">
@@ -202,16 +163,18 @@
                     </li>
                 </ul>
 
-                <div class="config-btn-wrapper" style="margin-bottom: 39px;">
-                    <button type="button" class="config-btn cancel" id="addFilmBtn">Добавить фильм</button>
-                    <button type="button" class="config-btn save" id="addPosterBtn">Загрузить постер</button>
-                    <button type="button" class="config-btn save" id="cancelFilmBtn">Сохранить</button>
+                <div class="config-btn-wrapper">
+                    <button type="button" class="config-btn cancel" id="cancelFilmsConfig">Отмена</button>
+                    <button type="button" class="config-btn save" id="saveFilmsConfig">Сохранить</button>
                 </div>
             </div>
         </section>
 
         <section class="section-admin">
-            <h2 class="section-admin-header">Открыть продажи</h2>
+            <header class="section-admin-header-wrapper">
+                <h2 class="section-admin-header">Открыть продажи</h2>
+                <button class="admin-header-collapse-btn"></button>
+            </header>
             <div class="section-admin-content">
                 <p class="opening-closing-header">Выберите залл для открытия/закрытия продаж:</p>
                 <ul class="opening-closing-list" id="openCloseHalls"></ul>
@@ -234,8 +197,7 @@
                 <form method="dialog" id="createHallForm">
                     <label class="modal-label">
                         Название зала
-                        <input type="text" class="modal-text-input" name="hallName" placeholder="Например, «Зал 1»"
-                            autofocus>
+                        <input type="text" class="modal-text-input" name="hallName" placeholder="Например, «Зал 1»">
                     </label>
 
                     <div class="create-hall-btns">
@@ -243,7 +205,6 @@
                         <button class="cancel-hall-btn" onclick="this.closest('dialog').close()"
                             aria-label="Отменить">Отменить</button>
                     </div>
-
                 </form>
             </div>
         </section>
@@ -257,31 +218,35 @@
                     aria-label="Закрыть"></button>
             </header>
             <div class="modal-admin-content">
-                <form>
+                <form method="dialog" id="addFilmForm">
                     <label class="modal-label">
                         Название фильма
-                        <input type="text">
+                        <input type="text" class="modal-text-input" name="filmName" placeholder="Например, «Гражданин Кейн»">
                     </label>
-                    <label>
+                    <label class="modal-label">
                         Продолжительность фильма (мин.)
-                        <input type="number">
+                        <input type="number" class="modal-text-input" name="filmDuration" min="1">
                     </label>
-                    <label>
+                    <label class="modal-label">
                         Описание фильма
-                        <textarea></textarea>
+                        <textarea class="modal-text-input modal-textarea" name="filmDescription" rows="5"></textarea>
                     </label>
-                    <label>
+                    <label class="modal-label">
                         Страна
-                        <input type="number">
+                        <input type="text" class="modal-text-input" name="filmOrigin" >
                     </label>
+
+                    <div class="create-hall-btns">
+                        <button class="config-btn addFilm" id="addFilmBtn">Добавить фильм</button>
+                        <label class="config-btn addPoster">
+                            Загрузить постер
+                            <input type="file" class="poster-file-input" name="filePoster" accept=".png" >
+                        </label>
+                        <!-- <button type="button" class="config-btn addPoster" id="addPosterBtn">Загрузить постер</button> -->
+                        <button class="config-btn cancelFilm" id="cancelFilmBtn"
+                            onclick="this.closest('dialog').close()" aria-label="Отменить">Отменить</button>
+                    </div>
                 </form>
-
-
-
-                <div>
-                    <button>Подписаться</button>
-                    <button onclick="this.closest('dialog').close()" aria-label="Отменить">Отменить</button>
-                </div>
             </div>
         </section>
     </dialog>

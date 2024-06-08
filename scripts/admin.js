@@ -7,6 +7,8 @@ class Admin {
         this.currentHall = {};
         this.currentHallPrices = {};
 
+        this.collapseBtns = Array.from(document.querySelectorAll('.admin-header-collapse-btn'));
+
         this.hallsList = document.getElementById('hallsList');
         this.hallsConfig = document.getElementById('hallsConfig');
 
@@ -29,17 +31,18 @@ class Admin {
         this.openCloseInfo = document.getElementById('openCloseInfo');
         this.openCloseBtn = document.getElementById('openCloseBtn');
 
+        this.filmsList = document.getElementById('filmsList');
+        this.addFilmModal = document.getElementById('addFilmModal');
+        this.posterFileInput = document.querySelector('.poster-file-input');
+        this.addFilmForm = document.getElementById('addFilmForm');
+
         this.addEventListeners();
         this.initData();
     }
 
     addEventListeners() {
-        this.createHallModal.addEventListener('click', ({ currentTarget, target }) => {
-            const isClickedOnBackdrop = target === currentTarget;
-            if (isClickedOnBackdrop) {
-                currentTarget.close();
-            }
-        });
+        this.collapseBtns.forEach(btn => btn.addEventListener('click', (e) => this.collapseBtnsHandler(e)));
+        this.createHallModal.addEventListener('click', (e) => this.handleModalClick(e));
         this.createHallForm.addEventListener('submit', (e) => this.addHall());
 
         this.hallRowsInput.addEventListener('input', (e) => this.hallRowsInputHandler());
@@ -53,6 +56,33 @@ class Admin {
         this.cancelPricesBtn.addEventListener('click', () => this.cancelPricessConfig());
 
         this.openCloseBtn.addEventListener('click', () => this.openCloseBtnHandler());
+
+        this.addFilmModal.addEventListener('click', (e) => this.handleModalClick(e));
+        this.posterFileInput.addEventListener("change", (event) => {
+            event.preventDefault();
+            let size = this.posterFileInput.files[0].size;
+
+            if (size > 3000000) {
+                alert("Размер файла не должен превышать 3 Мб");
+            }
+        });
+        this.addFilmForm.addEventListener('submit', (e) => this.addFilm());
+
+    }
+
+    handleModalClick({ currentTarget, target }) {
+        const isClickedOnBackdrop = target === currentTarget;
+        if (isClickedOnBackdrop) {
+            currentTarget.close();
+        }
+    }
+
+    collapseBtnsHandler(e) {
+        let target = e.target;
+        let section = target.closest('.section-admin').querySelector('.section-admin-content')
+
+        target.classList.toggle('collapse');
+        section.classList.toggle('collapse');
     }
 
     async initData() {
@@ -64,6 +94,7 @@ class Admin {
             this.seances = this.data.result.seances;
 
             this.initHallsList();
+            this.initFilmsList();
         } else {
             alert(res.error);
         }
@@ -115,7 +146,6 @@ class Admin {
 
     addHall() {
         let formData = new FormData(this.createHallForm);
-        let name = formData.get('hallName');
         this.createHallForm.reset();
         if (formData) {
             this.apiData.addNewHall(formData).then(res => {
@@ -340,6 +370,64 @@ class Admin {
                 alert(res.error);
             }
         })
+    }
+
+    initFilmsList() {
+        if (this.films) {
+            console.log(this.films);
+            this.filmsList.innerHTML = '';
+
+            for (let film of this.films) {
+                this.filmsList.innerHTML += `
+                    <li class="movie-list-item" id="${film.id}">
+                        <img class="movie-poster-mini"
+                            src="${film.film_poster}"
+                            alt="Постер к фильму ${film.film_name}">
+                        <div class="movie-description-mini">
+                            <p class="movie-title-mini">${film.film_name}</p>
+                            <p class="movie-duration-mini">${film.film_duration} минут</p>
+                            <div class="remove-movie-img"></div>
+                        </div>
+                    </li>`;
+
+            };
+            this.removeFilmsBtns = Array.from(document.querySelectorAll('.remove-movie-img'));
+            this.removeFilmsBtns.forEach(btn => btn.addEventListener('click', (e) => this.removeFilm(e)));
+        }
+    }
+
+    addFilm() {
+        let formData = new FormData(this.addFilmForm);
+        this.addFilmForm.reset();
+        if (formData) {
+            this.apiData.addNewFilm(formData).then(res => {
+                console.log(res)
+                if (res.success) {
+                    this.films = res.result.films;
+                    this.initFilmsList();
+                } else {
+                    alert(res.error);
+                }
+            })
+        }
+    }
+
+    removeFilm(e) {
+        let result = confirm('Вы уверены, что хотите удалить выбранный фильм?');
+        if (result) {
+            let id = e.target.closest('.movie-list-item').id;
+            if (id) {
+                console.log(id)
+                this.apiData.removeFilm(id).then(res => {
+                    if (res.success) {
+                        this.films = res.result.films;
+                        this.initFilmsList();
+                    } else {
+                        alert(res.error);
+                    }
+                })
+            }
+        }
     }
 }
 
