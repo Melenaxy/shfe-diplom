@@ -790,7 +790,6 @@ body:has(dialog[open]) {
 
 .section-admin-content {
     max-width: 962px;
-    min-height: 430px;
     margin: 0 auto;
     padding: 35px 30px;
     background-color: rgba(234, 233, 235, 0.95);
