@@ -851,6 +851,7 @@ body:has(dialog[open]) {
     background-position: center;
     background-size: 12px 12px;
     background-color: #ffffff;
+    cursor: pointer;
 }
 
 .create-hall-btn {
@@ -870,7 +871,7 @@ body:has(dialog[open]) {
     background-color: rgba(22, 166, 175, 1);
     box-shadow: 0px 0px 3px 0px rgba(0, 0, 0, 0.12);
     box-shadow: 0px 3px 3px 0px rgba(0, 0, 0, 0.24);
-
+    cursor: pointer;
 }
 
 .halls-config-list {
@@ -977,6 +978,32 @@ body:has(dialog[open]) {
     font-weight: 400;
     line-height: 16px;
     color: #848484;
+}
+
+.halls-seats-standart {
+    width: 26px;
+    height: 26px;
+    border-radius: 4px;
+    border: 1px solid #393939;
+    background-color: #C4C4C4;
+    border: 1px solid #393939;
+}
+
+.halls-seats-vip {
+    width: 26px;
+    height: 26px;
+    border-radius: 4px;
+    border: 1px solid #393939;
+    background-color: #B0D6D8;
+    border: 1px solid #0A828A;
+}
+
+.halls-seats-disabled {
+    width: 26px;
+    height: 26px;
+    border-radius: 4px;
+    border: 1px solid #393939;
+    border: 1px solid #C4C4C4;
 }
 
 .halls-seats-config-hint {
@@ -1128,6 +1155,7 @@ body:has(dialog[open]) {
     min-height: 52px;
     background-color: rgba(202, 255, 133, 1);
     border: 1px solid rgba(0, 0, 0, 0.3);
+    cursor: grab;
 }
 
 .movie-poster-mini {
@@ -1171,6 +1199,7 @@ body:has(dialog[open]) {
 }
 
 .seances-timeline-item {
+    position: relative;
     margin-bottom: 35px;
 }
 
@@ -1192,9 +1221,13 @@ body:has(dialog[open]) {
 
 .seances-timeline-movie {
     position: absolute;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
     width: 72px;
     height: 40px;
-    padding: 10px;
+    padding: 7px;
     border: 1px solid rgba(0, 0, 0, 0.3);
     background-color: rgba(133, 255, 137, 1);
 }
@@ -1209,30 +1242,11 @@ body:has(dialog[open]) {
     bottom: -15px;
 }
 
-.movie-1 {
-    left: 50px;
-}
-
-.movie-2 {
-    left: 150px;
-}
-
-.movie-3 {
-    left: 250px;
-}
-
-.movie-4 {
-    left: 100px;
-}
-
-.movie-5 {
-    left: 200px;
-}
-
 .seances-timeline-movie-title {
     font-size: 10px;
     font-weight: 400;
     line-height: 10px;
+    cursor: grab;
 }
 
 .seances-timeline-movie-start {
@@ -1410,6 +1424,18 @@ dialog[open]::backdrop {
 
 .poster-file-input {
     visibility: hidden;
+}
+
+.delete-seance-icon {
+    position: absolute;
+    top: 25px;
+    left: -65px;
+    width: 50px;
+    height: 50px;
+}
+
+.delete-seance-icon.hidden {
+    display: none;
 }
 
 /*#endregion */

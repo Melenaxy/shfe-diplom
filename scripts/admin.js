@@ -8,6 +8,8 @@ class Admin {
         this.currentHallPrices = {};
 
         this.collapseBtns = Array.from(document.querySelectorAll('.admin-header-collapse-btn'));
+        this.seanceHallSelect = document.getElementById('seanceHallSelect');
+        this.seanceFilmSelect = document.getElementById('seanceFilmSelect');
 
         this.hallsList = document.getElementById('hallsList');
         this.hallsConfig = document.getElementById('hallsConfig');
@@ -35,6 +37,10 @@ class Admin {
         this.addFilmModal = document.getElementById('addFilmModal');
         this.posterFileInput = document.querySelector('.poster-file-input');
         this.addFilmForm = document.getElementById('addFilmForm');
+
+        this.seancesHallsList = document.getElementById('seancesHallsList');
+        this.addSeanceModal = document.getElementById('addSeanceModal');
+        this.addSeanceForm = document.getElementById('addSeanceForm');
 
         this.addEventListeners();
         this.initData();
@@ -66,8 +72,8 @@ class Admin {
                 alert("Размер файла не должен превышать 3 Мб");
             }
         });
-        this.addFilmForm.addEventListener('submit', (e) => this.addFilm());
-
+        this.addFilmForm.addEventListener('submit', () => this.addFilm());
+        this.addSeanceForm.addEventListener('submit', () => this.addSeance());
     }
 
     handleModalClick({ currentTarget, target }) {
@@ -87,7 +93,6 @@ class Admin {
 
     async initData() {
         this.data = await this.apiData.getAllData();
-        this.oldData = structuredClone(this.data);
         if (this.data.success) {
             this.halls = this.data.result.halls;
             this.films = this.data.result.films;
@@ -102,12 +107,15 @@ class Admin {
 
     initHallsList() {
         if (this.halls) {
-            console.log(this.halls);
+            this.seanceHallSelect.innerHTML = '';
             this.hallsList.innerHTML = '';
             this.hallsConfig.innerHTML = '';
             this.pricesConfig.innerHTML = '';
             this.openCloseHalls.innerHTML = '';
+            this.seancesHallsList.innerHTML = '';
             for (let hall of this.halls) {
+                this.seanceHallSelect.innerHTML += `
+                    <option value="${hall.id}">${hall.hall_name}</option>`;
                 this.hallsList.innerHTML += `
                     <li class="halls-list-item">
                         <div class="halls-list-item-text" id="${hall.id}">${hall.hall_name}</div>
@@ -125,6 +133,12 @@ class Admin {
                     <li class="halls-config-item opening-closing" id="${hall.id}">
                         ${hall.hall_name}
                     </li>`;
+                this.seancesHallsList.innerHTML += `
+                    <li class="seances-timeline-item" id="${hall.id}">
+                        <img class="delete-seance-icon hidden" src="../img/delete-icon.png" alt="Удалить сеанс">
+                        <p class="seances-timeline-title">${hall.hall_name}</p>
+                        <ul class="seances-timeline" id="${hall.id}"></ul>
+                    </li>`;
             };
             this.removeHallBtns = Array.from(document.querySelectorAll('.halls-list-item-img'));
             this.removeHallBtns.forEach(btn => btn.addEventListener('click', (e) => this.removeHall(e)));
@@ -141,6 +155,53 @@ class Admin {
             this.openCloseArray = Array.from(document.querySelectorAll('.opening-closing'));
             this.openCloseArray.forEach(btn => btn.addEventListener('click', (e) => this.openingClosing(e)));
             this.openCloseArray[0].dispatchEvent(event);
+
+            this.seancesList = Array.from(document.querySelectorAll('.seances-timeline'));
+            this.seancesList.forEach(timeline => {
+                timeline.innerHTML = "";
+
+                for (let i = 0; i < this.seances.length; i++) {
+                    let movieSeanseId = this.films.findIndex(element => element.id === Number(this.seances[i].seance_filmid));
+
+                    if (Number(timeline.id) === this.seances[i].seance_hallid) {
+                        let hours = this.seances[i].seance_time.split(':')[0];
+                        let position = hours / 24 * 100;
+                        timeline.insertAdjacentHTML("beforeend", `
+                            <li class="seances-timeline-movie" id="${this.seances[i].id}" style="left: ${position}%;" draggable="true">
+                                <p class="seances-timeline-movie-title">${this.films[movieSeanseId].film_name}</p>
+                                <p class="seances-timeline-movie-start" data-duration="${this.films[movieSeanseId].film_duration}">${this.seances[i].seance_time}</p>
+                            </li>`);
+                    }
+                }
+
+            });
+
+            this.seancesTimelineMovies = Array.from(document.querySelectorAll('.seances-timeline-movie'));
+            this.seancesTimelineMovies.forEach(seance => {
+                seance.addEventListener('dragstart', (e) => {
+                    this.selectedSeance = e.target;
+                    e.target.closest('.seances-timeline-item').querySelector('.delete-seance-icon').classList.remove('hidden');
+                });
+                seance.addEventListener("dragend", (e) => {
+                    this.selectedSeance = null;
+                    e.target.closest('.seances-timeline-item').querySelector('.delete-seance-icon').classList.add('hidden');
+                })
+            })
+
+            this.deleteSeanceBtns = Array.from(document.querySelectorAll('.delete-seance-icon'));
+            this.deleteSeanceBtns.forEach(btn => {
+                btn.addEventListener('dragover', (e) => {
+                    e.preventDefault();
+                });
+
+                btn.addEventListener('drop', (e) => {
+                    this.removeSeance(this.selectedSeance.id);
+                    this.selectedSeance = null;
+                    e.target.classList.add('hidden');
+                })
+
+            })
+
         }
     }
 
@@ -152,6 +213,8 @@ class Admin {
                 if (res.success) {
                     this.halls = res.result.halls;
                     this.initHallsList();
+                    this.initFilmsList();
+                    alert('Зал успешно добавлен');
                 } else {
                     alert(res.error);
                 }
@@ -168,6 +231,7 @@ class Admin {
                     if (res.success) {
                         this.halls = res.result.halls;
                         this.initHallsList();
+                        alert('Зал успешно удален');
                     } else {
                         alert(res.error);
                     }
@@ -268,14 +332,7 @@ class Admin {
     }
 
     cancelSeatsConfiguration() {
-        //let id = this.currentHall.id
         this.initData();
-
-        // let index = this.hallsConfigArray.findIndex(s => Number(s.id) === id);
-        // let event = new Event("click");
-        // this.currentHall = this.halls.find(s => s.id === id);
-        // this.configHall();
-        // this.hallsConfigArray[index].dispatchEvent(event);
     }
 
     configPrices(e) {
@@ -374,25 +431,55 @@ class Admin {
 
     initFilmsList() {
         if (this.films) {
-            console.log(this.films);
             this.filmsList.innerHTML = '';
+            this.seanceFilmSelect.innerHTML = '';
 
             for (let film of this.films) {
                 this.filmsList.innerHTML += `
-                    <li class="movie-list-item" id="${film.id}">
+                    <li class="movie-list-item" id="${film.id}" draggable="true" style="background-color: ${'#' + (Math.random() * 0x1000000 | 0x1000000).toString(16).slice(1)}">
                         <img class="movie-poster-mini"
                             src="${film.film_poster}"
-                            alt="Постер к фильму ${film.film_name}">
+                            alt="Постер к фильму ${film.film_name}" draggable="false">
                         <div class="movie-description-mini">
                             <p class="movie-title-mini">${film.film_name}</p>
                             <p class="movie-duration-mini">${film.film_duration} минут</p>
                             <div class="remove-movie-img"></div>
                         </div>
                     </li>`;
-
+                this.seanceFilmSelect.innerHTML += `
+                    <option value="${film.id}">${film.film_name}</option>`;
             };
             this.removeFilmsBtns = Array.from(document.querySelectorAll('.remove-movie-img'));
             this.removeFilmsBtns.forEach(btn => btn.addEventListener('click', (e) => this.removeFilm(e)));
+
+            this.moviesList = Array.from(document.querySelectorAll('.movie-list-item'));
+            this.moviesList.forEach(movie => {
+                movie.addEventListener('dragstart', (e) => {
+                    this.selectedMovie = e.target;
+                });
+                movie.addEventListener("dragend", (e) => {
+                    this.selectedMovie = null;
+                })
+            })
+
+            this.seancesTimelines = Array.from(document.querySelectorAll('.seances-timeline-item'));
+            this.seancesTimelines.forEach(line => {
+                line.addEventListener('dragover', (e) => {
+                    e.preventDefault();
+                });
+
+                line.addEventListener('drop', (e) => {
+                    if (e.target.classList.contains('seances-timeline')) {
+                        this.selectedTimeline = e.target;
+                    } else {
+                        this.selectedTimeline = e.target.closest('.seances-timeline');
+                    };
+                    this.seanceHallSelect.value = this.selectedTimeline.id;
+                    this.seanceFilmSelect.value = this.selectedMovie.id;
+                    this.addSeanceModal.showModal();
+                })
+
+            })
         }
     }
 
@@ -401,7 +488,6 @@ class Admin {
         this.addFilmForm.reset();
         if (formData) {
             this.apiData.addNewFilm(formData).then(res => {
-                console.log(res)
                 if (res.success) {
                     this.films = res.result.films;
                     this.initFilmsList();
@@ -417,11 +503,48 @@ class Admin {
         if (result) {
             let id = e.target.closest('.movie-list-item').id;
             if (id) {
-                console.log(id)
                 this.apiData.removeFilm(id).then(res => {
                     if (res.success) {
                         this.films = res.result.films;
+                        this.seances = res.result.seances;
+                        this.initHallsList();
                         this.initFilmsList();
+                        alert('Фильм успешно удален')
+                    } else {
+                        alert(res.error);
+                    }
+                })
+            }
+        }
+    }
+
+    addSeance() {
+        let formData = new FormData(this.addSeanceForm);
+        this.addSeanceForm.reset();
+        if (formData) {
+            this.apiData.addSeance(formData).then(res => {
+                if (res.success) {
+                    this.seances = res.result.seances;
+                    this.initHallsList();
+                    this.initFilmsList();
+                    alert('Сеанс успешно добавлен')
+                } else {
+                    alert(res.error);
+                }
+            })
+        }
+    }
+
+    removeSeance(seanceId) {
+        let result = confirm('Вы уверены, что хотите удалить выбранный сеанс?');
+        if (result) {
+            if (seanceId) {
+                this.apiData.removeSeance(seanceId).then(res => {
+                    if (res.success) {
+                        this.seances = res.result.seances;
+                        this.initHallsList();
+                        this.initFilmsList();
+                        alert('Сеанс успешно удален')
                     } else {
                         alert(res.error);
                     }

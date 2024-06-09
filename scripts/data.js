@@ -202,5 +202,40 @@ export class Data {
         }
     }
 
+    async addSeance(model) {
+        try {
+            let path = `${this.URL}/seance`;
+            let result = await fetch(path, {
+                method: 'POST',
+                body: model
+            })
+            if (result.ok === true) {
+                return result.json();
+            } else {
+                return null;
+            }
+        } catch (e) {
+            console.error(e);
+            return null;
+        }
+    }
+
+    async removeSeance(seanceId) {
+        try {
+            let path = `${this.URL}/seance/${seanceId}`;
+            let result = await fetch(path, {
+                method: 'DELETE',
+            })
+            if (result.ok === true) {
+                return result.json();
+            } else {
+                return null;
+            }
+        } catch (e) {
+            console.error(e);
+            return null;
+        }
+    }
+
 }
 

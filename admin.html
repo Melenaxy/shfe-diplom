@@ -51,15 +51,15 @@
                 <p class="halls-seats-header">Теперь вы можете указать типы кресел на схеме зала:</p>
                 <ul class="halls-seats-list">
                     <li class="halls-seats-item">
-                        <div class="halls-seats standart"></div>
+                        <div class="halls-seats-standart"></div>
                         <div class="halls-seats-text"> — обычные кресла</div>
                     </li>
                     <li class="halls-seats-item">
-                        <div class="halls-seats vip"></div>
+                        <div class="halls-seats-vip"></div>
                         <div class="halls-seats-text"> — VIP кресла</div>
                     </li>
                     <li class="halls-seats-item">
-                        <div class="halls-seats disabled"></div>
+                        <div class="halls-seats-disabled"></div>
                         <div class="halls-seats-text"> — заблокированные (нет кресла)</div>
                     </li>
                 </ul>
@@ -99,14 +99,14 @@
                     <div class="prices-config-row">
                         <input type="number" class="prices-config-input" id="standartPriceValue" min="1">
                         <p class="prices-config-text"> за </p>
-                        <div class="halls-seats standart"></div>
+                        <div class="halls-seats-standart"></div>
                         <p class="prices-config-text">обычные кресла</p>
                     </div>
                     <label for="vipPriceValue" class="prices-config-label">Цена, рублей</label>
                     <div class="prices-config-row">
                         <input type="number" class="prices-config-input" id="vipPriceValue" min="1">
                         <p class="prices-config-text"> за </p>
-                        <div class="halls-seats vip"></div>
+                        <div class="halls-seats-vip"></div>
                         <p class="prices-config-text">VIP кресла</p>
                     </div>
                 </div>
@@ -130,38 +130,7 @@
 
                 <ul class="movie-list" id="filmsList"></ul>
 
-                <ul class="seances-timeline-list">
-                    <li class="seances-timeline-item">
-                        <p class="seances-timeline-title">Зал 1</p>
-                        <div class="seances-timeline">
-                            <div class="seances-timeline-movie movie-1">
-                                <p class="seances-timeline-movie-title">Миссия выполнима</p>
-                                <p class="seances-timeline-movie-start">10:00</p>
-                            </div>
-                            <div class="seances-timeline-movie movie-2">
-                                <p class="seances-timeline-movie-title">Миссия выполнима</p>
-                                <p class="seances-timeline-movie-start">17:00</p>
-                            </div>
-                            <div class="seances-timeline-movie movie-3">
-                                <p class="seances-timeline-movie-title">Звёздные войны</p>
-                                <p class="seances-timeline-movie-start">19:00</p>
-                            </div>
-                        </div>
-                    </li>
-                    <li class="seances-timeline-item">
-                        <p class="seances-timeline-title">Зал 2</p>
-                        <div class="seances-timeline">
-                            <div class="seances-timeline-movie movie-4">
-                                <p class="seances-timeline-movie-title">Миссия выполнима</p>
-                                <p class="seances-timeline-movie-start">14:00</p>
-                            </div>
-                            <div class="seances-timeline-movie movie-5">
-                                <p class="seances-timeline-movie-title">Звёздные войны</p>
-                                <p class="seances-timeline-movie-start">18:00</p>
-                            </div>
-                        </div>
-                    </li>
-                </ul>
+                <ul class="seances-timeline-list" id="seancesHallsList"></ul>
 
                 <div class="config-btn-wrapper">
                     <button type="button" class="config-btn cancel" id="cancelFilmsConfig">Отмена</button>
@@ -197,7 +166,7 @@
                 <form method="dialog" id="createHallForm">
                     <label class="modal-label">
                         Название зала
-                        <input type="text" class="modal-text-input" name="hallName" placeholder="Например, «Зал 1»">
+                        <input type="text" class="modal-text-input" name="hallName" placeholder="Например, «Зал 1»" autofocus>
                     </label>
 
                     <div class="create-hall-btns">
@@ -221,7 +190,8 @@
                 <form method="dialog" id="addFilmForm">
                     <label class="modal-label">
                         Название фильма
-                        <input type="text" class="modal-text-input" name="filmName" placeholder="Например, «Гражданин Кейн»">
+                        <input type="text" class="modal-text-input" name="filmName"
+                            placeholder="Например, «Гражданин Кейн»">
                     </label>
                     <label class="modal-label">
                         Продолжительность фильма (мин.)
@@ -233,17 +203,57 @@
                     </label>
                     <label class="modal-label">
                         Страна
-                        <input type="text" class="modal-text-input" name="filmOrigin" >
+                        <input type="text" class="modal-text-input" name="filmOrigin">
                     </label>
 
                     <div class="create-hall-btns">
                         <button class="config-btn addFilm" id="addFilmBtn">Добавить фильм</button>
                         <label class="config-btn addPoster">
                             Загрузить постер
-                            <input type="file" class="poster-file-input" name="filePoster" accept=".png" >
+                            <input type="file" class="poster-file-input" name="filePoster" accept=".png">
                         </label>
-                        <!-- <button type="button" class="config-btn addPoster" id="addPosterBtn">Загрузить постер</button> -->
                         <button class="config-btn cancelFilm" id="cancelFilmBtn"
+                            onclick="this.closest('dialog').close()" aria-label="Отменить">Отменить</button>
+                    </div>
+                </form>
+            </div>
+        </section>
+    </dialog>
+
+    <dialog class="dialog-modal" id="addSeanceModal">
+        <section class="section-admin">
+            <header class="modal-admin-header-wrapper">
+                <h2 class="modal-admin-header">Добавление сеанса</h2>
+                <button class="modal-header-close-btn" onclick="this.closest('dialog').close()"
+                    aria-label="Закрыть"></button>
+            </header>
+            <div class="modal-admin-content">
+                <form method="dialog" id="addSeanceForm">
+                    <label class="modal-label">
+                        Название зала
+                        <select class="modal-text-input" name="seanceHallid" id="seanceHallSelect">
+
+                        </select>
+                    </label>
+                    <label class="modal-label">
+                        Название фильма
+                        <select class="modal-text-input" name="seanceFilmid" id="seanceFilmSelect">
+                            <option value="dog">Dog</option>
+                            <option value="cat">Cat</option>
+                            <option value="hamster">Hamster</option>
+                            <option value="parrot">Parrot</option>
+                            <option value="spider">Spider</option>
+                            <option value="goldfish" selected>Goldfish</option>
+                        </select>
+                    </label>
+                    <label class="modal-label">
+                        Время начала
+                        <input type="time" class="modal-text-input" name="seanceTime" value="12:00">
+                    </label>
+
+                    <div class="create-hall-btns">
+                        <button class="config-btn addFilm" id="addSeanceBtn">Добавить сеанс</button>
+                        <button class="config-btn cancelFilm" id="cancelSeanceBtn"
                             onclick="this.closest('dialog').close()" aria-label="Отменить">Отменить</button>
                     </div>
                 </form>
